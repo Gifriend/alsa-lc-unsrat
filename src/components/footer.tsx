@@ -48,10 +48,10 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-serif text-xl font-bold mb-4">Contact</h3>
             <div className="flex gap-4 mb-4">
-              <a href="#" aria-label="Instagram" className="hover:text-accent transition-colors">
+              <a href="https://www.instagram.com/alsalcunsrat/?hl=id" aria-label="Instagram" className="hover:text-accent transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="#" aria-label="Facebook" className="hover:text-accent transition-colors">
+              <a href="https://www.facebook.com/alsalcunsrat/?locale=id_ID" aria-label="Facebook" className="hover:text-accent transition-colors">
                 <Facebook size={20} />
               </a>
               <a href="#" aria-label="Website" className="hover:text-accent transition-colors">

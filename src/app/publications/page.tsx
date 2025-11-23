@@ -9,7 +9,7 @@ interface Publication {
   id: string
   title: string
   year: number
-  authors: string
+  authors: string[]
   pdfUrl: string
 }
 
@@ -79,7 +79,7 @@ export default function PublicationsPage() {
             {filteredPublications.map((pub) => (
               <div
                 key={pub.id}
-                className="bg-white border border-neutral-light rounded p-6 hover:shadow-lg transition-shadow"
+                className="bg-white border border-ring rounded p-6 hover:shadow-lg transition-shadow"
               >
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex-1">

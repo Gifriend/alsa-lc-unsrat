@@ -116,7 +116,7 @@ export default function ResourcesManagement() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
               />
             </div>
             <div>
@@ -125,7 +125,7 @@ export default function ResourcesManagement() {
                 required
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
                 rows={3}
               />
             </div>
@@ -134,7 +134,7 @@ export default function ResourcesManagement() {
               <select
                 value={formData.fileType}
                 onChange={(e) => setFormData({ ...formData, fileType: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
               >
                 <option>pdf</option>
                 <option>docx</option>

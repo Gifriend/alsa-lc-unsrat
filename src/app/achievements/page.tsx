@@ -51,7 +51,7 @@ export default function AchievementsPage() {
                 key={achievement.id}
                 className="bg-white rounded shadow overflow-hidden hover:shadow-lg transition-shadow"
               >
-                <div className="h-48 bg-gradient-to-br from-primary-light to-primary flex items-center justify-center text-5xl">
+                <div className="h-48 bg-linear-to-br from-primary-light to-primary flex items-center justify-center text-5xl">
                   🏆
                 </div>
                 <div className="p-6">

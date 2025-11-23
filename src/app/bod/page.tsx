@@ -50,7 +50,7 @@ export default function BODPage() {
                 key={member.id}
                 className="bg-white rounded shadow hover:shadow-lg transition-shadow overflow-hidden"
               >
-                <div className="h-56 bg-gradient-to-br from-primary to-primary-light flex items-center justify-center text-5xl">
+                <div className="h-56 bg-linear-to-br from-primary to-primary-light flex items-center justify-center text-5xl">
                   👤
                 </div>
                 <div className="p-6 text-center">

@@ -39,7 +39,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary to-primary-light flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-primary to-primary-light flex items-center justify-center p-4">
       <div className="bg-white rounded shadow-lg p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="font-serif text-3xl font-bold text-primary">ALSA Admin</h1>
@@ -55,7 +55,7 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-neutral-light rounded focus:outline-none focus:border-accent"
+              className="w-full px-4 py-2 border border-ring rounded focus:outline-none focus:border-accent focus:border-2"
               required
             />
           </div>
@@ -66,7 +66,7 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-neutral-light rounded focus:outline-none focus:border-accent"
+              className="w-full px-4 py-2 border border-ring rounded focus:outline-none focus:border-accent focus:border-2"
               required
             />
           </div>

@@ -48,7 +48,7 @@ export default function MerchandisePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {merchandise.map((item) => (
               <div key={item.id} className="bg-white rounded shadow hover:shadow-lg transition-shadow overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-primary to-primary-light flex items-center justify-center text-5xl">
+                <div className="h-48 bg-linear-to-br from-primary to-primary-light flex items-center justify-center text-5xl">
                   👕
                 </div>
                 <div className="p-6">

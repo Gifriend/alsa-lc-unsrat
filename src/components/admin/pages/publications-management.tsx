@@ -116,7 +116,7 @@ export default function PublicationsManagement() {
                 required
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
               />
             </div>
             <div>
@@ -126,7 +126,7 @@ export default function PublicationsManagement() {
                 required
                 value={formData.authors}
                 onChange={(e) => setFormData({ ...formData, authors: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
               />
             </div>
             <div>
@@ -138,7 +138,7 @@ export default function PublicationsManagement() {
                 max={new Date().getFullYear()}
                 value={formData.year}
                 onChange={(e) => setFormData({ ...formData, year: Number.parseInt(e.target.value) })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
               />
             </div>
             <button type="submit" disabled={isLoading} className="btn-primary disabled:opacity-50">

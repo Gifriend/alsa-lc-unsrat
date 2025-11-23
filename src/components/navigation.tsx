@@ -14,7 +14,7 @@ export default function Navigation() {
     { href: "/bod", label: "BOD" },
     { href: "/resources", label: "Resources" },
     { href: "/achievements", label: "Achievements" },
-    { href: "/proker", label: "Proker" },
+    { href: "/proker", label: "Work" },
     { href: "/publications", label: "Publications" },
     { href: "/merchandise", label: "Merchandise" },
   ]

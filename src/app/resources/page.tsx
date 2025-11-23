@@ -51,7 +51,7 @@ export default function ResourcesPage() {
             {resources.map((resource) => (
               <div
                 key={resource.id}
-                className="bg-white border border-neutral-light rounded p-6 hover:shadow-lg transition-shadow flex items-center justify-between"
+                className="bg-white border border-ring rounded p-6 hover:shadow-lg transition-shadow flex items-center justify-between"
               >
                 <div className="flex-1">
                   <h3 className="font-bold text-primary mb-1">{resource.name}</h3>

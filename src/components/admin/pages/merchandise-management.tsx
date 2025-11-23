@@ -116,7 +116,7 @@ export default function MerchandiseManagement() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
               />
             </div>
             <div>
@@ -125,7 +125,7 @@ export default function MerchandiseManagement() {
                 required
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
                 rows={3}
               />
             </div>
@@ -137,7 +137,7 @@ export default function MerchandiseManagement() {
                 min="0"
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: Number.parseInt(e.target.value) || 0 })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
               />
             </div>
             <button type="submit" disabled={isLoading} className="btn-primary disabled:opacity-50">

@@ -25,7 +25,7 @@ export default function AdminSidebar({ currentPage, onPageChange, isOpen, onClos
     { label: "Board of Directors", page: "bod" },
     { label: "Resources", page: "resources" },
     { label: "Achievements", page: "achievements" },
-    { label: "Proker", page: "proker" },
+    { label: "Work", page: "proker" },
     { label: "Publications", page: "publications" },
     { label: "Merchandise", page: "merchandise" },
   ]

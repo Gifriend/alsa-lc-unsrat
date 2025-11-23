@@ -1,5 +1,6 @@
 import { adminDb } from "@/lib/firebase-admin"
 import { cookies } from "next/headers"
+import { use } from "react"
 
 async function checkAuth() {
   const cookieStore = await cookies()
@@ -7,14 +8,14 @@ async function checkAuth() {
   return authToken?.value === "true"
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const isAuthenticated = await checkAuth()
   if (!isAuthenticated) {
     return Response.json({ message: "Unauthorized" }, { status: 401 })
   }
 
   try {
-    const { id } = await params
+    const { id } = use(params);
     const body = await request.json()
     await adminDb
       .collection("publications")
@@ -30,14 +31,14 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const isAuthenticated = await checkAuth()
   if (!isAuthenticated) {
     return Response.json({ message: "Unauthorized" }, { status: 401 })
   }
 
   try {
-    const { id } = await params
+    const { id } = use(params);
     await adminDb.collection("publications").doc(id).delete()
     return Response.json({ message: "Publication deleted" })
   } catch (error) {

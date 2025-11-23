@@ -21,7 +21,7 @@ export default function ProkerManagement() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    status: "ongoing" as const,
+    status: "ongoing",
     startDate: new Date().toISOString().split("T")[0],
   })
 
@@ -129,7 +129,7 @@ export default function ProkerManagement() {
                 required
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
               />
             </div>
             <div>
@@ -138,7 +138,7 @@ export default function ProkerManagement() {
                 required
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded"
+                className="w-full px-4 py-2 border border-ring rounded"
                 rows={4}
               />
             </div>
@@ -148,7 +148,7 @@ export default function ProkerManagement() {
                 <select
                   value={formData.status}
                   onChange={(e) => setFormData({ ...formData, status: e.target.value as "ongoing" | "archived" })}
-                  className="w-full px-4 py-2 border border-neutral-light rounded"
+                  className="w-full px-4 py-2 border border-ring rounded"
                 >
                   <option value="ongoing">Ongoing</option>
                   <option value="archived">Archived</option>
@@ -161,7 +161,7 @@ export default function ProkerManagement() {
                   required
                   value={formData.startDate}
                   onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                  className="w-full px-4 py-2 border border-neutral-light rounded"
+                  className="w-full px-4 py-2 border border-ring rounded"
                 />
               </div>
             </div>
