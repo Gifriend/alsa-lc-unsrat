@@ -9,7 +9,7 @@ async function checkAuth() {
 
 export async function GET() {
   try {
-    const snapshot = await adminDb.collection("achievements").orderBy("year", "desc").get()
+    const snapshot = await adminDb.collection("achievements").orderBy("date", "desc").get()
     const data = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),

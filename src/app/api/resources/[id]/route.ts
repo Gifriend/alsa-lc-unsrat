@@ -15,7 +15,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 
   try {
-    const { id } = use(params);
+    const { id } = await params;
     const body = await request.json()
     await adminDb
       .collection("resources")
@@ -38,7 +38,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   }
 
   try {
-    const { id } = use(params);
+    const { id } = await params 
     await adminDb.collection("resources").doc(id).delete()
     return Response.json({ message: "Resource deleted" })
   } catch (error) {

@@ -1,6 +1,5 @@
 import { adminDb } from "@/lib/firebase-admin"
 import { cookies } from "next/headers"
-import { use } from "react"
 
 async function checkAuth() {
   const cookieStore = await cookies()
@@ -15,7 +14,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 
   try {
-    const { id } = use(params);
+    const { id } = await params
     const body = await request.json()
     await adminDb
       .collection("merchandise")
@@ -38,7 +37,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   }
 
   try {
-    const { id } = use(params);
+    const { id } = await params
     await adminDb.collection("merchandise").doc(id).delete()
     return Response.json({ message: "Merchandise deleted" })
   } catch (error) {

@@ -28,9 +28,9 @@ export default function InNumbers() {
         console.error("Failed to fetch stats:", error)
         // Fallback values
         setStats({
-          activeMembers: 50,
-          alumni: 200,
-          localChapters: 1,
+          activeMembers: 0,
+          alumni: 0,
+          localChapters: 0,
         })
       } finally {
         setIsLoading(false)
@@ -43,14 +43,14 @@ export default function InNumbers() {
   const numbers = [
     { label: "Active Members", value: stats.activeMembers },
     { label: "Alumni", value: stats.alumni },
-    { label: "Local Chapters", value: stats.localChapters },
+    // { label: "Local Chapters", value: stats.localChapters },
   ]
 
   return (
     <section className="section-spacing bg-neutral-light section-divider">
       <div className="container-custom">
         <h2 className="text-center mb-12">In Numbers</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {numbers.map((item) => (
             <div key={item.label} className="bg-white p-8 rounded shadow text-center hover:shadow-lg transition-shadow">
               <div className="text-4xl md:text-5xl font-serif font-bold text-accent mb-2">

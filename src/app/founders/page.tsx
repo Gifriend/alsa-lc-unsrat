@@ -41,9 +41,6 @@ export default function FoundersPage() {
       <section className="section-spacing container-custom">
         <div className="flex justify-between items-center mb-12">
           <h1>Founding Fathers & Mothers</h1>
-          <Link href="/admin" className="btn-secondary">
-            Admin
-          </Link>
         </div>
 
         {isLoading ? (

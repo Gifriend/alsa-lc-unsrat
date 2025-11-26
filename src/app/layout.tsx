@@ -17,25 +17,25 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-  title: "ALSA LC Unsrat - Asian Law Students Association",
-  description: "ALSA LC Unsrat official website. Connect and develop as future leaders in law.",
-  // icons: {
-  //   icon: [
-  //     {
-  //       url: "/icon-light-32x32.png",
-  //       media: "(prefers-color-scheme: light)",
-  //     },
-  //     {
-  //       url: "/icon-dark-32x32.png",
-  //       media: "(prefers-color-scheme: dark)",
-  //     },
-  //     {
-  //       url: "/icon.svg",
-  //       type: "image/svg+xml",
-  //     },
-  //   ],
-  //   apple: "/apple-icon.png",
-  // },
+  title: "ALSA LC UNSRAT - Asian Law Students Association",
+  description: "ALSA LC UNSRAT official website. Connect and develop as future leaders in law.",
+  icons: {
+    icon: [
+      {
+        url: "/ALSA-logo-putih.png",
+        // media: "(prefers-color-scheme: light)",
+      },
+      // {
+      //   url: "/icon-dark-32x32.png",
+      //   media: "(prefers-color-scheme: dark)",
+      // },
+      // {
+      //   url: "/icon.svg",
+      //   type: "image/svg+xml",
+      // },
+    ],
+    apple: "/ALSA-logo-putih.png",
+  },
 }
 
 export const viewport = {

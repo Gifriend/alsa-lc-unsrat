@@ -1,6 +1,5 @@
 import { adminDb } from "@/lib/firebase-admin"
 import { cookies } from "next/headers"
-import { use } from "react"
 
 async function checkAuth() {
   const cookieStore = await cookies()
@@ -15,8 +14,10 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 
   try {
-    const { id } = use(params);
+    const { id } = await params // await params
+    console.log("ID PARAM:", id)
     const body = await request.json()
+
     await adminDb
       .collection("founders")
       .doc(id)
@@ -24,6 +25,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
         ...body,
         updatedAt: new Date(),
       })
+
     return Response.json({ id, ...body })
   } catch (error) {
     console.error("Error updating founder:", error)
@@ -38,8 +40,10 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   }
 
   try {
-    const { id } = use(params);
+    const { id } = await params // await params
+
     await adminDb.collection("founders").doc(id).delete()
+
     return Response.json({ message: "Founder deleted" })
   } catch (error) {
     console.error("Error deleting founder:", error)

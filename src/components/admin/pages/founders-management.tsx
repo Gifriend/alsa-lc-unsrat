@@ -33,6 +33,7 @@ export default function FoundersManagement() {
       if (response.ok) {
         const data = await response.json()
         setFounders(data)
+        console.log("Fetched founders:", data);
       }
     } catch (error) {
       console.error("Failed to fetch founders:", error)
@@ -43,11 +44,19 @@ export default function FoundersManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.name || !formData.period || !formData.description) {
+      alert("Please fill in all fields")
+      return
+    }
+
     setIsLoading(true)
 
     try {
       const method = editingId ? "PUT" : "POST"
       const url = editingId ? `/api/founders/${editingId}` : "/api/founders"
+
+      console.log("[v0] Submitting to:", url, "Method:", method, "ID:", editingId)
 
       const response = await fetch(url, {
         method,
@@ -55,14 +64,20 @@ export default function FoundersManagement() {
         body: JSON.stringify(formData),
       })
 
-      if (response.ok) {
-        await fetchFounders()
-        setFormData({ name: "", period: "", description: "" })
-        setShowForm(false)
-        setEditingId(null)
+      if (!response.ok) {
+        const error = await response.json()
+        console.error(" API Error:", error)
+        alert(`Error: ${error.message || "Failed to save founder"}`)
+        return
       }
+
+      await fetchFounders()
+      setFormData({ name: "", period: "", description: "" })
+      setShowForm(false)
+      setEditingId(null)
     } catch (error) {
-      console.error("Failed to save founder:", error)
+      console.error("[v0] Failed to save founder:", error)
+      alert("Failed to save founder. Check console for details.")
     } finally {
       setIsLoading(false)
     }
@@ -122,7 +137,7 @@ export default function FoundersManagement() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-2 border border-ring rounded focus:outline-none focus:border-accent focus:border-2 focus:border-2"
+                className="w-full px-4 py-2 border border-neutral-light rounded focus:outline-none focus:border-accent"
               />
             </div>
             <div>
@@ -132,7 +147,7 @@ export default function FoundersManagement() {
                 required
                 value={formData.period}
                 onChange={(e) => setFormData({ ...formData, period: e.target.value })}
-                className="w-full px-4 py-2 border border-ring rounded focus:outline-none focus:border-accent focus:border-2"
+                className="w-full px-4 py-2 border border-neutral-light rounded focus:outline-none focus:border-accent"
               />
             </div>
             <div>
@@ -141,7 +156,7 @@ export default function FoundersManagement() {
                 required
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-2 border border-ring rounded focus:outline-none focus:border-accent focus:border-2"
+                className="w-full px-4 py-2 border border-neutral-light rounded focus:outline-none focus:border-accent"
                 rows={4}
               />
             </div>
