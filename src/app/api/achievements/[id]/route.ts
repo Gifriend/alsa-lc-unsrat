@@ -7,6 +7,22 @@ async function checkAuth() {
   return authToken?.value === "true"
 }
 
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params
+    const doc = await adminDb.collection("achievements").doc(id).get()
+
+    if (!doc.exists) {
+      return Response.json({ message: "Achievement not found" }, { status: 404 })
+    }
+
+    return Response.json({ id: doc.id, ...doc.data() })
+  } catch (error) {
+    console.error("Error fetching achievement:", error)
+    return Response.json({ message: "Error fetching achievement" }, { status: 500 })
+  }
+}
+
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const isAuthenticated = await checkAuth()
   if (!isAuthenticated) {
