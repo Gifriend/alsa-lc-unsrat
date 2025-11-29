@@ -9,8 +9,8 @@ interface Publication {
   id: string
   title: string
   year: number
-  authors: string[]
-  pdfUrl: string
+  authors: string  
+  pdf_url: string  // Ubah ke pdf_url agar sesuai dengan data dari API
 }
 
 export default function PublicationsPage() {
@@ -84,17 +84,24 @@ export default function PublicationsPage() {
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex-1">
                     <h3 className="font-serif text-lg font-bold text-primary mb-1">{pub.title}</h3>
-                    <p className="text-neutral-medium text-sm mb-2">{pub.authors}</p>
+                    <p className="text-neutral-medium text-sm mb-2">{pub.authors}</p> {/* Hilangkan .join, karena sekarang string */}
                     <p className="text-accent text-sm font-semibold">{pub.year}</p>
                   </div>
-                  <a
-                    href={pub.pdfUrl}
-                    download
-                    className="p-3 bg-accent hover:bg-accent-light text-white rounded transition-colors flex items-center gap-2 whitespace-nowrap"
-                  >
-                    <Download size={18} />
-                    <span className="hidden sm:inline">PDF</span>
-                  </a>
+                  {pub.pdf_url ? (
+                    <a
+                      href={pub.pdf_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-accent hover:bg-accent-light text-white rounded transition-colors flex items-center gap-2 whitespace-nowrap"
+                    >
+                      <Download size={18} />
+                      <span className="hidden sm:inline">View PDF</span>
+                    </a>
+                  ) : (
+                    <span className="p-3 bg-gray-300 text-gray-600 rounded flex items-center gap-2 whitespace-nowrap">
+                      No PDF
+                    </span>
+                  )}
                 </div>
               </div>
             ))}

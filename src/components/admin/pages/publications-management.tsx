@@ -10,6 +10,7 @@ interface Publication {
   title: string
   authors: string
   year: number
+  pdf_url?: string  // Tambah optional field untuk URL PDF
 }
 
 export default function PublicationsManagement() {
@@ -22,6 +23,7 @@ export default function PublicationsManagement() {
     authors: "",
     year: new Date().getFullYear(),
   })
+  const [file, setFile] = useState<File | null>(null)  // State baru untuk file PDF
 
   useEffect(() => {
     fetchPublications()
@@ -49,15 +51,23 @@ export default function PublicationsManagement() {
       const method = editingId ? "PUT" : "POST"
       const url = editingId ? `/api/publications/${editingId}` : "/api/publications"
 
+      const data = new FormData()  // Gunakan FormData untuk handle file
+      data.append("title", formData.title)
+      data.append("authors", formData.authors)
+      data.append("year", formData.year.toString())
+      if (file) {
+        data.append("pdf", file)
+      }
+
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: data,
       })
 
       if (response.ok) {
         await fetchPublications()
         setFormData({ title: "", authors: "", year: new Date().getFullYear() })
+        setFile(null)
         setShowForm(false)
         setEditingId(null)
       }
@@ -76,6 +86,7 @@ export default function PublicationsManagement() {
     })
     setEditingId(publication.id)
     setShowForm(true)
+    // Note: Untuk edit, file PDF existing bisa dihandle di backend jika perlu replace
   }
 
   const handleDelete = async (id: string) => {
@@ -98,6 +109,7 @@ export default function PublicationsManagement() {
             if (showForm) {
               setEditingId(null)
               setFormData({ title: "", authors: "", year: new Date().getFullYear() })
+              setFile(null)
             }
           }}
           className="btn-primary"
@@ -141,6 +153,15 @@ export default function PublicationsManagement() {
                 className="w-full px-4 py-2 border border-ring rounded"
               />
             </div>
+            <div>
+              <label className="block text-sm font-bold mb-2">PDF File</label>
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={(e) => setFile(e.target.files?.[0] || null)}
+                className="w-full px-4 py-2 border border-ring rounded"
+              />
+            </div>
             <button type="submit" disabled={isLoading} className="btn-primary disabled:opacity-50">
               {isLoading ? "Saving..." : "Save"}
             </button>
@@ -160,6 +181,7 @@ export default function PublicationsManagement() {
                 <th className="px-4 py-3 text-left">Title</th>
                 <th className="px-4 py-3 text-left">Authors</th>
                 <th className="px-4 py-3 text-left">Year</th>
+                <th className="px-4 py-3 text-left">PDF</th> {/* Kolom baru untuk PDF */}
                 <th className="px-4 py-3 text-left">Actions</th>
               </tr>
             </thead>
@@ -169,6 +191,13 @@ export default function PublicationsManagement() {
                   <td className="px-4 py-3 truncate max-w-xs">{publication.title}</td>
                   <td className="px-4 py-3">{publication.authors}</td>
                   <td className="px-4 py-3">{publication.year}</td>
+                  <td className="px-4 py-3">
+                    {publication.pdf_url ? (
+                      <a href={publication.pdf_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                        View PDF
+                      </a>
+                    ) : "No PDF"}
+                  </td>
                   <td className="px-4 py-3 flex gap-2">
                     <button
                       onClick={() => handleEdit(publication)}

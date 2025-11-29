@@ -1,6 +1,10 @@
-import { adminDb } from "@/lib/firebase-admin"
+import { createClient } from '@supabase/supabase-js'
 import { cookies } from "next/headers"
-import { use } from "react"
+
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_ANON_KEY!
+)
 
 async function checkAuth() {
   const cookieStore = await cookies()
@@ -15,16 +19,42 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 
   try {
-    const { id } = await params;
-    const body = await request.json()
-    await adminDb
-      .collection("publications")
-      .doc(id)
-      .update({
-        ...body,
-        updatedAt: new Date(),
-      })
-    return Response.json({ id, ...body })
+    const { id } = await params
+    const formData = await request.formData()
+    const title = formData.get('title') as string
+    const authors = formData.get('authors') as string
+    const year = parseInt(formData.get('year') as string)
+    const file = formData.get('pdf') as File | null
+
+    let pdf_url = null
+    if (file) {
+      // Dapatkan existing PDF untuk hapus jika replace
+      const { data: existing } = await supabase.from('publications').select('pdf_url').eq('id', id).single()
+      if (existing?.pdf_url) {
+        const oldPath = existing.pdf_url.split('/publications/')[1]  // Extract path
+        await supabase.storage.from('publications').remove([oldPath])
+      }
+
+      const filePath = `pdf/${crypto.randomUUID()}-${file.name}`
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('publications')
+        .upload(filePath, file)
+
+      if (uploadError) throw uploadError
+      pdf_url = `${process.env.SUPABASE_URL}/storage/v1/object/public/publications/${filePath}`
+    }
+
+    const updateData: any = { title, authors, year }
+    if (pdf_url) updateData.pdf_url = pdf_url
+
+    const { data, error } = await supabase
+      .from('publications')
+      .update(updateData)
+      .eq('id', id)
+      .select()
+
+    if (error) throw error
+    return Response.json(data[0])
   } catch (error) {
     console.error("Error updating publication:", error)
     return Response.json({ message: "Error updating publication" }, { status: 500 })
@@ -38,8 +68,16 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   }
 
   try {
-    const { id } = await params;
-    await adminDb.collection("publications").doc(id).delete()
+    const { id } = await params
+    // Hapus PDF jika ada
+    const { data: existing } = await supabase.from('publications').select('pdf_url').eq('id', id).single()
+    if (existing?.pdf_url) {
+      const filePath = existing.pdf_url.split('/publications/')[1]
+      await supabase.storage.from('publications').remove([filePath])
+    }
+
+    const { error } = await supabase.from('publications').delete().eq('id', id)
+    if (error) throw error
     return Response.json({ message: "Publication deleted" })
   } catch (error) {
     console.error("Error deleting publication:", error)

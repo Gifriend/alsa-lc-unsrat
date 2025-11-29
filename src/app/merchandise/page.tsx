@@ -3,7 +3,7 @@
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { useState, useEffect } from "react"
-import { ShoppingBag, ImageIcon } from "lucide-react" // Import Icon
+import { ShoppingBag, ImageIcon } from "lucide-react" 
 
 interface Merchandise {
   id: string
