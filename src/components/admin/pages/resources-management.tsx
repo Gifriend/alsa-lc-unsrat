@@ -9,7 +9,8 @@ interface Resource {
   id: string
   name: string
   description: string
-  fileType: string
+  file_url?: string
+  category: string  // Tambah category
 }
 
 export default function ResourcesManagement() {
@@ -20,8 +21,9 @@ export default function ResourcesManagement() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    fileType: "pdf",
+    category: "other",  // Default category
   })
+  const [file, setFile] = useState<File | null>(null)
 
   useEffect(() => {
     fetchResources()
@@ -49,15 +51,23 @@ export default function ResourcesManagement() {
       const method = editingId ? "PUT" : "POST"
       const url = editingId ? `/api/resources/${editingId}` : "/api/resources"
 
+      const data = new FormData()
+      data.append("name", formData.name)
+      data.append("description", formData.description)
+      data.append("category", formData.category)
+      if (file) {
+        data.append("file", file)
+      }
+
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: data,
       })
 
       if (response.ok) {
         await fetchResources()
-        setFormData({ name: "", description: "", fileType: "pdf" })
+        setFormData({ name: "", description: "", category: "other" })
+        setFile(null)
         setShowForm(false)
         setEditingId(null)
       }
@@ -72,7 +82,7 @@ export default function ResourcesManagement() {
     setFormData({
       name: resource.name,
       description: resource.description,
-      fileType: resource.fileType,
+      category: resource.category,
     })
     setEditingId(resource.id)
     setShowForm(true)
@@ -97,7 +107,8 @@ export default function ResourcesManagement() {
             setShowForm(!showForm)
             if (showForm) {
               setEditingId(null)
-              setFormData({ name: "", description: "", fileType: "pdf" })
+              setFormData({ name: "", description: "", category: "other" })
+              setFile(null)
             }
           }}
           className="btn-primary"
@@ -130,17 +141,24 @@ export default function ResourcesManagement() {
               />
             </div>
             <div>
-              <label className="block text-sm font-bold mb-2">File Type</label>
+              <label className="block text-sm font-bold mb-2">Category</label>
               <select
-                value={formData.fileType}
-                onChange={(e) => setFormData({ ...formData, fileType: e.target.value })}
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 className="w-full px-4 py-2 border border-ring rounded"
               >
-                <option>pdf</option>
-                <option>docx</option>
-                <option>xlsx</option>
-                <option>pptx</option>
+                <option value="official">Official Document</option>
+                <option value="other">Other Content</option>
               </select>
+            </div>
+            <div>
+              <label className="block text-sm font-bold mb-2">Upload File</label>
+              <input
+                type="file"
+                accept=".pdf,.docx,.xlsx,.pptx"
+                onChange={(e) => setFile(e.target.files?.[0] || null)}
+                className="w-full px-4 py-2 border border-ring rounded"
+              />
             </div>
             <button type="submit" disabled={isLoading} className="btn-primary disabled:opacity-50">
               {isLoading ? "Saving..." : "Save Resource"}
@@ -163,6 +181,12 @@ export default function ResourcesManagement() {
               <div>
                 <h3 className="font-bold">{resource.name}</h3>
                 <p className="text-sm text-neutral-medium">{resource.description}</p>
+                <p className="text-sm text-neutral-medium">Category: {resource.category === 'official' ? 'Official Document' : 'Other Content'}</p>
+                {resource.file_url && (
+                  <a href={resource.file_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline text-sm">
+                    View File
+                  </a>
+                )}
               </div>
               <div className="flex gap-2">
                 <button onClick={() => handleEdit(resource)} className="p-2 text-accent hover:bg-neutral-light rounded">

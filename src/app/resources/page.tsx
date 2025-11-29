@@ -9,9 +9,10 @@ interface Resource {
   id: string
   name: string
   description: string
-  fileUrl: string
-  fileType: string
-  uploadedAt: string
+  file_url: string
+  file_type: string
+  created_at: string
+  category: string  // Tambah category
 }
 
 export default function ResourcesPage() {
@@ -36,42 +37,103 @@ export default function ResourcesPage() {
     fetchResources()
   }, [])
 
+  const officialResources = resources.filter((r) => r.category === "official")
+  const otherResources = resources.filter((r) => r.category === "other")
+
   return (
     <main>
       <Navigation />
-      <section className="section-spacing container-custom">
-        <h1 className="mb-12">Resources - ART ALSA Unsrat</h1>
+      <section className=" pb-12 md:px-0">
+        <div className="w-full bg-primary pt-20 pb-2">
+          <h1 className="ml-10 text-3xl font-bold align-bottom text-start mb-12 text-background">Resources - ALSA UNSRAT</h1>
+        </div>
 
-        {isLoading ? (
-          <div className="text-center py-12">Loading resources...</div>
+        <div className="section-spacing container-custom max-w-6xl mx-auto">
+          {isLoading ? (
+          <div className="text-center py-12 text-gray-500">Loading resources...</div>
         ) : resources.length === 0 ? (
-          <div className="text-center py-12 text-neutral-medium">No resources available yet.</div>
+          <div className="text-center py-12 text-gray-500">No resources available yet.</div>
         ) : (
-          <div className="max-w-3xl space-y-4">
-            {resources.map((resource) => (
-              <div
-                key={resource.id}
-                className="bg-white border border-ring rounded p-6 hover:shadow-lg transition-shadow flex items-center justify-between"
-              >
-                <div className="flex-1">
-                  <h3 className="font-bold text-primary mb-1">{resource.name}</h3>
-                  <p className="text-neutral-medium text-sm mb-2">{resource.description}</p>
-                  <p className="text-xs text-neutral-medium">
-                    {resource.fileType.toUpperCase()} • Uploaded {new Date(resource.uploadedAt).toLocaleDateString()}
-                  </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h2 className="text-2xl font-bold mb-6 text-primary">Official Documents</h2>
+              {officialResources.length === 0 ? (
+                <p className="text-gray-500">No official documents yet.</p>
+              ) : (
+                <div className="space-y-6">
+                  {officialResources.map((resource) => (
+                    <div
+                      key={resource.id}
+                      className="bg-white border border-gray-200 rounded-lg p-6 shadow-md hover:shadow-xl transition-shadow flex flex-col justify-between"
+                    >
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold text-primary mb-2">{resource.name}</h3>
+                        <p className="text-gray-600 mb-2">{resource.description}</p>
+                        <p className="text-sm text-gray-500">
+                          {resource.file_type.toUpperCase()} • Uploaded {new Date(resource.created_at).toLocaleDateString()}
+                        </p>
+                      </div>
+                      {resource.file_url ? (
+                        <a
+                          href={resource.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center gap-2 whitespace-nowrap self-start"
+                        >
+                          <Download size={18} />
+                          <span>View/Download</span>
+                        </a>
+                      ) : (
+                        <span className="mt-4 px-4 py-2 bg-gray-300 text-gray-600 rounded-md flex items-center gap-2 whitespace-nowrap self-start">
+                          No File
+                        </span>
+                      )}
+                    </div>
+                  ))}
                 </div>
-                <a
-                  href={resource.fileUrl}
-                  download
-                  className="ml-4 p-3 bg-accent hover:bg-accent-light text-white rounded transition-colors flex items-center gap-2"
-                >
-                  <Download size={18} />
-                  <span className="hidden sm:inline">Download</span>
-                </a>
-              </div>
-            ))}
+              )}
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-6 text-primary">Other Contents</h2>
+              {otherResources.length === 0 ? (
+                <p className="text-gray-500">No other contents yet.</p>
+              ) : (
+                <div className="space-y-6">
+                  {otherResources.map((resource) => (
+                    <div
+                      key={resource.id}
+                      className="bg-white border border-gray-200 rounded-lg p-6 shadow-md hover:shadow-xl transition-shadow flex flex-col justify-between"
+                    >
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold text-primary mb-2">{resource.name}</h3>
+                        <p className="text-gray-600 mb-2">{resource.description}</p>
+                        <p className="text-sm text-gray-500">
+                          {resource.file_type.toUpperCase()} • Uploaded {new Date(resource.created_at).toLocaleDateString()}
+                        </p>
+                      </div>
+                      {resource.file_url ? (
+                        <a
+                          href={resource.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center gap-2 whitespace-nowrap self-start"
+                        >
+                          <Download size={18} />
+                          <span>View/Download</span>
+                        </a>
+                      ) : (
+                        <span className="mt-4 px-4 py-2 bg-gray-300 text-gray-600 rounded-md flex items-center gap-2 whitespace-nowrap self-start">
+                          No File
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
+        </div>
       </section>
       <Footer />
     </main>
