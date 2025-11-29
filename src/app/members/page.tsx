@@ -41,9 +41,7 @@ export default function MembersPage() {
         </div>
       </section>
 
-
       <section className="section-spacing container-custom">
-
         {isLoading ? (
           <div className="text-center py-12">Loading members...</div>
         ) : (

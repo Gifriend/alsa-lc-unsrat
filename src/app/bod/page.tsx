@@ -60,7 +60,6 @@ export default function BODPage() {
     <main>
       <Navigation />
 
-      {/* Hero Banner */}
       <section className="relative h-64 bg-primary overflow-hidden">
         <div className="relative container-custom h-full flex items-end pb-8">
           <h1 className="text-4xl md:text-5xl font-serif text-white">Board</h1>

@@ -67,7 +67,6 @@ export default function AchievementDetailPage() {
       <Navigation />
       
       <article className="flex-1 container-custom py-12 max-w-4xl mx-auto w-full">
-        {/* Tombol Kembali */}
         <button 
           onClick={() => router.back()} 
           className="flex items-center text-neutral-medium hover:text-primary mb-8 transition-colors group"
@@ -76,7 +75,6 @@ export default function AchievementDetailPage() {
           Back to Achievements
         </button>
 
-        {/* Header: Title & Date */}
         <header className="mb-8">
             <h1 className="text-3xl md:text-5xl font-bold font-serif text-primary mb-4 leading-tight">
                 {achievement.title}
@@ -91,17 +89,14 @@ export default function AchievementDetailPage() {
             </div>
         </header>
 
-        {/* --- BAGIAN GAMBAR DENGAN PLACEHOLDER --- */}
         <div className="w-full rounded-xl overflow-hidden shadow-lg mb-10 bg-gray-50 border border-gray-100">
             {achievement.imageUrl ? (
-                // JIKA ADA FOTO
                 <img 
                     src={achievement.imageUrl} 
                     alt={achievement.title} 
                     className="w-full h-auto max-h-[600px] object-contain mx-auto"
                 />
             ) : (
-                // JIKA TIDAK ADA FOTO (Placeholder)
                 <div className="w-full h-64 md:h-96 flex flex-col items-center justify-center text-gray-300">
                     <ImageIcon size={64} strokeWidth={1} />
                     <p className="text-gray-400 text-sm mt-2 font-medium">No image provided</p>
@@ -109,7 +104,6 @@ export default function AchievementDetailPage() {
             )}
         </div>
 
-        {/* Deskripsi Panjang */}
         <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-line">
             {achievement.description}
         </div>

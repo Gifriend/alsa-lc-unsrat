@@ -44,35 +44,35 @@ export default function HistoryPage() {
   return (
     <main>
       <Navigation />
-      <section className=" pb-12 md:px-0">
-        <div className="w-full bg-primary pt-20 pb-2">
-          <h1 className="sections-spacing container-custom text-5xl font-bold align-bottom text-start mb-12 text-background">
+      <section className="relative h-64 bg-primary overflow-hidden">
+        <div className="relative container-custom h-full flex items-end pb-8">
+          <h1 className="text-4xl md:text-5xl font-serif text-white">
             History Of - ALSA LC UNSRAT
           </h1>
         </div>
+      </section>
 
-        <div className="section-spacing container-custom max-w-6xl mx-auto">
-          <div className="max-w-3xl mx-auto">
-            {timeline.map((item, index) => (
-              <div key={item.year} className="flex gap-6 mb-8 relative">
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                    {index + 1}
-                  </div>
-                  {index < timeline.length - 1 && (
-                    <div className="w-1 h-16 bg-neutral-light mt-2" />
-                  )}
+      <section className="section-spacing container-custom">
+        <div className="max-w-3xl mx-auto">
+          {timeline.map((item, index) => (
+            <div key={item.year} className="flex gap-6 mb-8 relative">
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center font-bold">
+                  {index + 1}
                 </div>
-                <div className="pb-8">
-                  <h3 className="font-serif text-2xl font-bold text-primary mb-1">
-                    {item.year}
-                  </h3>
-                  <h4 className="font-bold text-lg mb-2">{item.title}</h4>
-                  <p className="text-neutral-medium">{item.description}</p>
-                </div>
+                {index < timeline.length - 1 && (
+                  <div className="w-1 h-16 bg-neutral-light mt-2" />
+                )}
               </div>
-            ))}
-          </div>
+              <div className="pb-8">
+                <h3 className="font-serif text-2xl font-bold text-primary mb-1">
+                  {item.year}
+                </h3>
+                <h4 className="font-bold text-lg mb-2">{item.title}</h4>
+                <p className="text-neutral-medium">{item.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
       <Footer />
