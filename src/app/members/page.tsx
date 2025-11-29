@@ -34,8 +34,15 @@ export default function MembersPage() {
   return (
     <main>
       <Navigation />
+
+      <section className="relative h-64 bg-primary overflow-hidden">
+        <div className="relative container-custom h-full flex items-end pb-8">
+          <h1 className="text-4xl md:text-5xl font-serif text-white">Members & Alumni</h1>
+        </div>
+      </section>
+
+
       <section className="section-spacing container-custom">
-        <h1 className="mb-12">Members & Alumni</h1>
 
         {isLoading ? (
           <div className="text-center py-12">Loading members...</div>

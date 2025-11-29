@@ -61,8 +61,7 @@ export default function BODPage() {
       <Navigation />
 
       {/* Hero Banner */}
-      <section className="relative h-64 bg-gradient-to-r from-primary to-primary-dark overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
+      <section className="relative h-64 bg-primary overflow-hidden">
         <div className="relative container-custom h-full flex items-end pb-8">
           <h1 className="text-4xl md:text-5xl font-serif text-white">Board</h1>
         </div>

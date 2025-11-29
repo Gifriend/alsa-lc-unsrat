@@ -38,9 +38,14 @@ export default function MerchandisePage() {
   return (
     <main className="min-h-screen flex flex-col bg-white">
       <Navigation />
+
+      <section className="relative h-64 bg-primary overflow-hidden">
+        <div className="relative container-custom h-full flex items-end pb-8">
+          <h1 className="text-4xl md:text-5xl font-serif text-white">Merchandise</h1>
+        </div>
+      </section>
       
       <section className="section-spacing container-custom flex-1 py-12">
-        <h1 className="mb-12 text-3xl font-bold font-serif text-primary">Merchandise</h1>
 
         {isLoading ? (
            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
