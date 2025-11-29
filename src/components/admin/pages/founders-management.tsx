@@ -137,7 +137,7 @@ export default function FoundersManagement() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 border border-black rounded focus:outline-none focus:border-accent"
               />
             </div>
             <div>
@@ -147,7 +147,7 @@ export default function FoundersManagement() {
                 required
                 value={formData.period}
                 onChange={(e) => setFormData({ ...formData, period: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 border border-black rounded focus:outline-none focus:border-accent"
               />
             </div>
             <div>
@@ -156,7 +156,7 @@ export default function FoundersManagement() {
                 required
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-2 border border-neutral-light rounded focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 border border-black rounded focus:outline-none focus:border-accent"
                 rows={4}
               />
             </div>
