@@ -1,3 +1,4 @@
+// components/BODManagement.tsx (updated)
 "use client"
 
 import type React from "react"
@@ -24,6 +25,7 @@ const LEVEL_OPTIONS = [
 
 export default function BODManagement() {
   const [members, setMembers] = useState<BODMember[]>([])
+  const [term, setTerm] = useState("2024-2026")  // State for term
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -44,7 +46,8 @@ export default function BODManagement() {
       const response = await fetch("/api/bod")
       if (response.ok) {
         const data = await response.json()
-        setMembers(data)
+        setMembers(data.members || [])
+        setTerm(data.term || "2024-2026")
       }
     } catch (error) {
       console.error("Failed to fetch BOD:", error)
@@ -114,6 +117,25 @@ export default function BODManagement() {
     }
   }
 
+  const handleUpdateTerm = async () => {
+  setIsLoading(true)
+  try {
+    const response = await fetch("/api/bod-term", {  
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ term }),
+    })
+
+    if (response.ok) {
+      await fetchBOD()
+    }
+  } catch (error) {
+    console.error("Failed to update term:", error)
+  } finally {
+    setIsLoading(false)
+  }
+}
+
   const handleEdit = (member: BODMember) => {
     setFormData({
       name: member.name,
@@ -141,6 +163,27 @@ export default function BODManagement() {
 
   return (
     <div>
+      {/* Section for managing term */}
+      <div className="bg-white p-6 rounded shadow mb-6">
+        <h3 className="font-bold mb-4">Manage Board Term</h3>
+        <div className="flex gap-4">
+          <input
+            type="text"
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+            className="flex-1 px-4 py-2 border border-ring rounded"
+            placeholder="e.g., 2024-2026"
+          />
+          <button
+            onClick={handleUpdateTerm}
+            disabled={isLoading}
+            className="btn-primary disabled:opacity-50"
+          >
+            {isLoading ? "Saving..." : "Update Term"}
+          </button>
+        </div>
+      </div>
+
       <div className="flex justify-between items-center mb-6">
         <h2>Manage Board of Directors</h2>
         <button

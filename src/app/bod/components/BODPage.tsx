@@ -1,3 +1,4 @@
+// app/bod/page.tsx (updated)
 "use client"
 
 import Navigation from "@/components/navigation"
@@ -16,6 +17,7 @@ interface BODMember {
 
 export default function BODPage() {
   const [members, setMembers] = useState<BODMember[]>([])
+  const [term, setTerm] = useState("2024-2026")  // Default term
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -24,7 +26,8 @@ export default function BODPage() {
         const response = await fetch("/api/bod")
         if (response.ok) {
           const data = await response.json()
-          setMembers(data)
+          setMembers(data.members || [])
+          setTerm(data.term || "2024-2026")
         }
       } catch (error) {
         console.error("Failed to fetch BOD:", error)
@@ -67,8 +70,8 @@ export default function BODPage() {
       </section>
 
       <section className="section-spacing container-custom">
-        <p className="text-primary font-medium mb-2">2024-2026</p>
-        <h2 className="text-3xl md:text-4xl font-serif mb-12">The National Board</h2>
+        <p className="text-primary font-medium mb-2">{term}</p>
+        <h2 className="text-3xl md:text-4xl font-serif mb-12">Board Of Directors</h2>
 
         {isLoading ? (
           <div className="text-center py-12">Loading board members...</div>

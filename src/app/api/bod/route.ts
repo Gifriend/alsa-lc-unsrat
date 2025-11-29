@@ -9,15 +9,19 @@ async function checkAuth() {
 
 export async function GET() {
   try {
-    const snapshot = await adminDb.collection("bod").orderBy("position").get()
-    const data = snapshot.docs.map((doc) => ({
+    const snapshot = await adminDb.collection("bod").orderBy("level").orderBy("order").get()
+    const members = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }))
-    return Response.json(data)
+
+    const termDoc = await adminDb.collection("settings").doc("bod_term").get()
+    const term = termDoc.exists ? termDoc.data()?.value : "2024-2026"
+
+    return Response.json({ members, term })
   } catch (error) {
     console.error("Error fetching BOD:", error)
-    return Response.json([], { status: 500 })
+    return Response.json({ members: [], term: "2024-2026" }, { status: 500 })
   }
 }
 
@@ -38,5 +42,24 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Error creating BOD member:", error)
     return Response.json({ message: "Error creating BOD member" }, { status: 500 })
+  }
+}
+
+export async function PUT(request: Request) {
+  const isAuthenticated = await checkAuth()
+  if (!isAuthenticated) {
+    return Response.json({ message: "Unauthorized" }, { status: 401 })
+  }
+
+  try {
+    const { term } = await request.json()
+    if (typeof term !== 'string' || term.trim() === '') {
+      throw new Error('Invalid term value');
+    }
+    await adminDb.collection("settings").doc("bod_term").set({ value: term })
+    return Response.json({ message: "Term updated" })
+  } catch (error) {
+    console.error("Error updating term:", error)
+    return Response.json({ message: "Error updating term" }, { status: 500 })
   }
 }
