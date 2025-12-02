@@ -19,7 +19,7 @@ export default function Hero() {
 
       <div className="relative z-10 container-custom flex flex-col justify-center items-center text-center">
         <h1 className="text-white text-4xl md:text-6xl font-serif font-bold mb-4">
-          ALSA LC Unsrat
+          ALSA LC UNSRAT
         </h1>
         <p className="text-lg md:text-xl text-neutral-light mb-4 max-w-2xl">
           Always be one! Connecting and developing future leaders in law.
