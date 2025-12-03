@@ -1,5 +1,5 @@
-"use client"
-import { X } from "lucide-react"
+"use client";
+import { X } from "lucide-react";
 
 type PageType =
   | "founders"
@@ -10,16 +10,21 @@ type PageType =
   | "proker"
   | "publications"
   | "merchandise"
-  | "history" // Add this
+  | "history"; // Add this
 
 interface AdminSidebarProps {
-  currentPage: PageType
-  onPageChange: (page: PageType) => void
-  isOpen: boolean
-  onClose: () => void
+  currentPage: PageType;
+  onPageChange: (page: PageType) => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function AdminSidebar({ currentPage, onPageChange, isOpen, onClose }: AdminSidebarProps) {
+export default function AdminSidebar({
+  currentPage,
+  onPageChange,
+  isOpen,
+  onClose,
+}: AdminSidebarProps) {
   const menuItems: Array<{ label: string; page: PageType }> = [
     { label: "Founders", page: "founders" },
     { label: "Members & Alumni", page: "members" },
@@ -30,30 +35,40 @@ export default function AdminSidebar({ currentPage, onPageChange, isOpen, onClos
     { label: "Publications", page: "publications" },
     { label: "Merchandise", page: "merchandise" },
     { label: "History", page: "history" }, // Add this
-  ]
+  ];
 
   const handleClick = (page: PageType) => {
-    onPageChange(page)
-    onClose()
-  }
+    onPageChange(page);
+    onClose();
+  };
 
   return (
     <>
       {/* Mobile overlay */}
-      {isOpen && <div className="fixed inset-0 bg-transparent md:hidden z-40" onClick={onClose} />}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-transparent md:hidden z-40"
+          onClick={onClose}
+        />
+      )}
 
       {/* Sidebar */}
       <aside
         className={`
-          fixed md:static inset-y-0 left-0 z-40
-          w-64 bg-primary text-white shadow-lg
-          transform transition-transform duration-200
-          ${isOpen ?  "translate-x-0" : "-translate-x-full md:translate-x-0"}
-        `}
+        fixed md:fixed left-0 top-0 z-40
+        h-screen w-64 
+        bg-primary text-white shadow-lg
+        overflow-y-auto
+        transform transition-transform duration-200
+        ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+      `}
       >
         <div className="p-6 border-b border-primary-light flex justify-between items-center">
           <h2 className="font-serif text-xl font-bold text-white">Menu</h2>
-          <button onClick={onClose} className="md:hidden hover:bg-primary-light p-1 rounded">
+          <button
+            onClick={onClose}
+            className="md:hidden hover:bg-primary-light p-1 rounded"
+          >
             <X size={20} />
           </button>
         </div>
@@ -64,14 +79,16 @@ export default function AdminSidebar({ currentPage, onPageChange, isOpen, onClos
               key={item.page}
               onClick={() => handleClick(item.page)}
               className={`w-full text-left px-4 py-3 rounded mb-2 transition-colors ${
-                currentPage === item. page ?  "bg-accent text-white" : "hover:bg-primary-light"
+                currentPage === item.page
+                  ? "bg-accent text-white"
+                  : "hover:bg-primary-light"
               }`}
             >
-              {item. label}
+              {item.label}
             </button>
           ))}
         </nav>
       </aside>
     </>
-  )
+  );
 }

@@ -187,7 +187,7 @@ export default function HistoryManagement() {
                     onChange={(e) =>
                       setFormData({ ...formData, year: e. target.value })
                     }
-                    className="w-full border border-neutral-light rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
+                    className="w-full border border-black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
                     placeholder="e.g., 2024"
                   />
                 </div>
@@ -201,7 +201,7 @@ export default function HistoryManagement() {
                     onChange={(e) =>
                       setFormData({ ...formData, title: e.target.value })
                     }
-                    className="w-full border border-neutral-light rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
+                    className="w-full border border-black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
                     placeholder="Event title"
                   />
                 </div>
@@ -215,7 +215,7 @@ export default function HistoryManagement() {
                   onChange={(e) =>
                     setFormData({ ...formData, description: e. target.value })
                   }
-                  className="w-full border border-neutral-light rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
+                  className="w-full border border-black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
                   rows={3}
                   placeholder="Describe the historical event..."
                 />
@@ -268,7 +268,7 @@ export default function HistoryManagement() {
                           onChange={(e) =>
                             setFormData({ ...formData, year: e. target.value })
                           }
-                          className="w-full border border-neutral-light rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
+                          className="w-full border border-black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
                         />
                       </div>
                       <div>
@@ -281,7 +281,7 @@ export default function HistoryManagement() {
                           onChange={(e) =>
                             setFormData({ ...formData, title: e.target.value })
                           }
-                          className="w-full border border-neutral-light rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
+                          className="w-full border border-black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
                         />
                       </div>
                     </div>
@@ -297,7 +297,7 @@ export default function HistoryManagement() {
                             description: e.target.value,
                           })
                         }
-                        className="w-full border border-neutral-light rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
+                        className="w-full border border-black rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
                         rows={3}
                       />
                     </div>
@@ -322,7 +322,7 @@ export default function HistoryManagement() {
                   <div className="flex gap-4">
                     {/* Bulatan dengan TAHUN, bukan nomor */}
                     <div className="flex flex-col items-center">
-                      <div className="w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm">
+                      <div className="w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center text-center font-bold text-sm">
                         {item.year}
                       </div>
                       {index < historyItems. length - 1 && (
@@ -337,7 +337,7 @@ export default function HistoryManagement() {
                         {item. description}
                       </p>
                     </div>
-                    <div className="flex gap-2 flex-shrink-0">
+                    <div className="flex gap-2 shrink-0">
                       <button
                         onClick={() => startEdit(item)}
                         className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"

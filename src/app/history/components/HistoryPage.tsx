@@ -74,7 +74,7 @@ export default function HistoryPage() {
               <div key={item.id} className="flex gap-6 mb-8 relative">
                 <div className="flex flex-col items-center">
                   {/* Bulatan dengan TAHUN */}
-                  <div className="w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm">
+                  <div className="w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center text-center font-bold text-sm">
                     {item. year}
                   </div>
                   {index < timeline.length - 1 && (

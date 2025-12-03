@@ -243,7 +243,7 @@ export default function AchievementsManagement() {
                 required
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-4 py-2 border border-input rounded bg-background"
+                className="w-full px-4 py-2 border border-black rounded bg-background"
               />
             </div>
             <div>
@@ -252,7 +252,7 @@ export default function AchievementsManagement() {
                 required
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-2 border border-input rounded bg-background"
+                className="w-full px-4 py-2 border border-black rounded bg-background"
                 rows={4}
               />
             </div>
@@ -263,7 +263,7 @@ export default function AchievementsManagement() {
                 required
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="w-full px-4 py-2 border border-input rounded bg-background"
+                className="w-full px-4 py-2 border border-black rounded bg-background"
               />
             </div>
             <button

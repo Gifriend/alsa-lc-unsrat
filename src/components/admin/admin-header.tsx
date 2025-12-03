@@ -16,7 +16,7 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
   }
 
   return (
-    <header className="bg-primary border-b border-neutral-light shadow-sm">
+    <header className="bg-primary border-b border-neutral-light shadow-sm sticky top-0 z-30">
       <div className="flex items-center justify-between p-4 md:p-6">
         <button onClick={onMenuClick} className="md:hidden p-2 hover:cursor-pointer rounded text-white" aria-label="Toggle menu">
           <Menu size={24} />

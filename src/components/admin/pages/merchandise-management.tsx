@@ -183,7 +183,7 @@ export default function MerchandiseManagement() {
                 Product Image
               </label>
               <div className="flex items-start gap-4">
-                <div className="w-32 h-32 bg-gray-50 border-2 border-dashed border-gray-300 rounded flex items-center justify-center overflow-hidden relative">
+                <div className="w-32 h-32 bg-gray-50 border-2 border-dashed border-black rounded flex items-center justify-center overflow-hidden relative">
                   {previewUrl ? (
                     <>
                       <img
@@ -239,7 +239,7 @@ export default function MerchandiseManagement() {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                className="w-full px-4 py-2 border border-black rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
             </div>
             <div>
@@ -252,7 +252,7 @@ export default function MerchandiseManagement() {
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                className="w-full px-4 py-2 border border-black rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
                 rows={3}
               />
             </div>
@@ -269,7 +269,7 @@ export default function MerchandiseManagement() {
                     price: Number.parseInt(e.target.value) || 0,
                   })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                className="w-full px-4 py-2 border border-black rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
             </div>
 
@@ -285,7 +285,7 @@ export default function MerchandiseManagement() {
                   const value = e.target.value.replace(/\D/g, ""); // Hanya angka
                   setFormData({ ...formData, whatsappNumber: value });
                 }}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                className="w-full px-4 py-2 border border-black rounded focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
               <p className="text-xs text-gray-500 mt-1">
                 Format: 628xxxxx (tanpa + atau spasi). Optional.
