@@ -13,6 +13,7 @@ import ProkerManagement from "./pages/proker-management"
 import PublicationsManagement from "./pages/publications-management"
 import MerchandiseManagement from "./pages/merchandise-management"
 import MembersManagement from "./pages/members-management"
+import HistoryManagement from "./pages/history-management" // Add this import
 
 type PageType =
   | "founders"
@@ -23,6 +24,7 @@ type PageType =
   | "proker"
   | "publications"
   | "merchandise"
+  | "history" // Add this
 
 export default function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState<PageType>("founders")
@@ -38,6 +40,7 @@ export default function AdminDashboard() {
       proker: <ProkerManagement />,
       publications: <PublicationsManagement />,
       merchandise: <MerchandiseManagement />,
+      history: <HistoryManagement />, 
     }
     return pages[currentPage]
   }

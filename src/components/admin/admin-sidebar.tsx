@@ -10,6 +10,7 @@ type PageType =
   | "proker"
   | "publications"
   | "merchandise"
+  | "history" // Add this
 
 interface AdminSidebarProps {
   currentPage: PageType
@@ -28,6 +29,7 @@ export default function AdminSidebar({ currentPage, onPageChange, isOpen, onClos
     { label: "Work", page: "proker" },
     { label: "Publications", page: "publications" },
     { label: "Merchandise", page: "merchandise" },
+    { label: "History", page: "history" }, // Add this
   ]
 
   const handleClick = (page: PageType) => {
@@ -38,7 +40,7 @@ export default function AdminSidebar({ currentPage, onPageChange, isOpen, onClos
   return (
     <>
       {/* Mobile overlay */}
-      {isOpen && <div className="fixed inset-0 bg-transparent  md:hidden z-40" onClick={onClose} />}
+      {isOpen && <div className="fixed inset-0 bg-transparent md:hidden z-40" onClick={onClose} />}
 
       {/* Sidebar */}
       <aside
@@ -46,7 +48,7 @@ export default function AdminSidebar({ currentPage, onPageChange, isOpen, onClos
           fixed md:static inset-y-0 left-0 z-40
           w-64 bg-primary text-white shadow-lg
           transform transition-transform duration-200
-          ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+          ${isOpen ?  "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
         <div className="p-6 border-b border-primary-light flex justify-between items-center">
@@ -62,10 +64,10 @@ export default function AdminSidebar({ currentPage, onPageChange, isOpen, onClos
               key={item.page}
               onClick={() => handleClick(item.page)}
               className={`w-full text-left px-4 py-3 rounded mb-2 transition-colors ${
-                currentPage === item.page ? "bg-accent text-white" : "hover:bg-primary-light"
+                currentPage === item. page ?  "bg-accent text-white" : "hover:bg-primary-light"
               }`}
             >
-              {item.label}
+              {item. label}
             </button>
           ))}
         </nav>
