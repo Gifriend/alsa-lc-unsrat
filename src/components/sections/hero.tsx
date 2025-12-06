@@ -7,7 +7,7 @@ export default function Hero() {
       
       <div className="absolute inset-0 -z-20">
         <Image
-          src="/manado.jpg" 
+          src="/hukum-unsrat.jpg" 
           alt="ALSA LC Unsrat "
           fill
           priority
@@ -22,7 +22,7 @@ export default function Hero() {
           ALSA LC UNSRAT
         </h1>
         <p className="text-lg md:text-xl text-neutral-light mb-4 max-w-2xl">
-          Always be one! Connecting and developing future leaders in law.
+          Connect The Difference, Together We Develop. ALSA, Always Be One!
         </p>
         <p className="text-neutral-light mb-8 max-w-2xl">
           Asian Law Students Association - Local Chapter Universitas Sam Ratulangi

@@ -4,27 +4,40 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "@/lib/firebase"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth } from "@/lib/firebase" // Sesuaikan path ke Firebase config
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
+
+    // Validation
+    if (password. length < 6) {
+      setError("Password must be at least 6 characters")
+      return
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match")
+      return
+    }
+
     setIsLoading(true)
 
     try {
-      // Sign in with Firebase
-      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      // Create user with Firebase
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
       const idToken = await userCredential.user.getIdToken()
 
-      // Send token to API to set cookie
+      // Auto login after registration
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,18 +47,18 @@ export default function LoginPage() {
       if (response.ok) {
         router.push("/admin")
       } else {
-        const data = await response.json()
-        setError(data.message || "Login failed")
+        // If auto-login fails, redirect to login page
+        router.push("/auth/login")
       }
     } catch (err: any) {
-      if (err.code === "auth/invalid-credential") {
-        setError("Invalid email or password")
-      } else if (err.code === "auth/user-not-found") {
-        setError("User not found")
-      } else if (err. code === "auth/wrong-password") {
-        setError("Invalid password")
+      if (err.code === "auth/email-already-in-use") {
+        setError("Email already exists")
+      } else if (err.code === "auth/invalid-email") {
+        setError("Invalid email format")
+      } else if (err.code === "auth/weak-password") {
+        setError("Password is too weak")
       } else {
-        setError("An error occurred.  Please try again.")
+        setError("Registration failed.  Please try again.")
       }
     } finally {
       setIsLoading(false)
@@ -57,10 +70,10 @@ export default function LoginPage() {
       <div className="bg-white rounded shadow-lg p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="font-serif text-3xl font-bold text-primary">ALSA Admin</h1>
-          <p className="text-neutral-medium mt-2">Login to manage content</p>
+          <p className="text-neutral-medium mt-2">Create your admin account</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-4">
           {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">{error}</div>}
 
           <div>
@@ -79,23 +92,37 @@ export default function LoginPage() {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e. target.value)}
+              onChange={(e) => setPassword(e.target. value)}
               className="w-full px-4 py-2 border border-ring rounded focus:outline-none focus:border-accent focus:border-2"
               required
+              minLength={6}
+            />
+            <p className="text-xs text-neutral-medium mt-1">Minimum 6 characters</p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold text-primary mb-2">Confirm Password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full px-4 py-2 border border-ring rounded focus:outline-none focus:border-accent focus:border-2"
+              required
+              minLength={6}
             />
           </div>
 
           <button type="submit" disabled={isLoading} className="w-full btn-primary disabled:opacity-50">
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? "Creating account..." : "Register"}
           </button>
         </form>
 
-        {/* <p className="text-center text-neutral-medium text-sm mt-6">
-          Don't have an account? {" "}
-          <Link href="/auth/register" className="text-accent hover:text-accent-light font-bold">
-            Register
+        <p className="text-center text-neutral-medium text-sm mt-6">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="text-accent hover:text-accent-light font-bold">
+            Login
           </Link>
-        </p> */}
+        </p>
 
         <p className="text-center text-neutral-medium text-sm mt-2">
           <Link href="/" className="text-accent hover:text-accent-light">

@@ -16,11 +16,11 @@ interface BODMember {
 }
 
 const LEVEL_OPTIONS = [
-  { value: 1, label: "Level 1 - Top (President/Chairman)" },
-  { value: 2, label: "Level 2 - Council/Supervisors" },
+  { value: 1, label: "Level 1 - Director" },
+  { value: 2, label: "Level 2 - Advisors/Supervisors" },
   { value: 3, label: "Level 3 - Secretary General" },
-  { value: 4, label: "Level 4 - Vice Presidents" },
-  { value: 5, label: "Level 5 - Chief Officers" },
+  { value: 4, label: "Level 4 - Vice Director" },
+  { value: 5, label: "Level 5 - Manager" },
 ]
 
 export default function BODManagement() {
