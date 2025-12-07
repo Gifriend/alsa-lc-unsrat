@@ -5,14 +5,25 @@ import Footer from "@/components/footer";
 import { useState, useEffect } from "react";
 import { Download } from "lucide-react";
 
+interface ResourceFile {
+  id: string;
+  resource_id: string;
+  file_name: string;
+  file_url: string;
+  file_type: string;
+  created_at: string;
+}
+
 interface Resource {
   id: string;
   name: string;
   description: string;
-  file_url: string;
-  file_type: string;
+  file_url: string | null;
+  file_type: string | null;
   created_at: string;
-  category: string; // Tambah category
+  updated_at: string;
+  category: string;
+  resource_files: ResourceFile[];
 }
 
 export default function ResourcesPage() {
@@ -28,7 +39,7 @@ export default function ResourcesPage() {
           setResources(data);
         }
       } catch (error) {
-        console.error("Failed to fetch resources:", error);
+        console. error("Failed to fetch resources:", error);
       } finally {
         setIsLoading(false);
       }
@@ -38,7 +49,7 @@ export default function ResourcesPage() {
   }, []);
 
   const officialResources = resources.filter((r) => r.category === "official");
-  const otherResources = resources.filter((r) => r.category === "other");
+  const otherResources = resources. filter((r) => r.category === "other");
 
   return (
     <main>
@@ -52,7 +63,7 @@ export default function ResourcesPage() {
       </section>
 
       <section className="section-spacing container-custom">
-        {isLoading ? (
+        {isLoading ?  (
           <div className="text-center py-12 text-gray-500">
             Loading resources...
           </div>
@@ -83,20 +94,29 @@ export default function ResourcesPage() {
                           {resource.description}
                         </p>
                         <p className="text-sm text-gray-500">
-                          {resource.file_type.toUpperCase()} • Uploaded{" "}
-                          {new Date(resource.created_at).toLocaleDateString()}
+                          Uploaded {new Date(resource.created_at).toLocaleDateString()}
                         </p>
                       </div>
-                      {resource.file_url ? (
-                        <a
-                          href={resource.file_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center gap-2 whitespace-nowrap self-start"
-                        >
-                          <Download size={18} />
-                          <span>View/Download</span>
-                        </a>
+
+                      {/* Multiple Files Display */}
+                      {resource. resource_files && resource.resource_files.length > 0 ?  (
+                        <div className="mt-4 space-y-2">
+                          {resource.resource_files.map((file) => (
+                            <a
+                              key={file.id}
+                              href={file. file_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-between px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                            >
+                              <span className="text-sm truncate mr-2">{file.file_name}</span>
+                              <div className="flex items-center gap-2 flex-shrink-0">
+                                <span className="text-xs">{file.file_type. toUpperCase()}</span>
+                                <Download size={16} />
+                              </div>
+                            </a>
+                          ))}
+                        </div>
                       ) : (
                         <span className="mt-4 px-4 py-2 bg-gray-300 text-gray-600 rounded-md flex items-center gap-2 whitespace-nowrap self-start">
                           No File
@@ -107,6 +127,7 @@ export default function ResourcesPage() {
                 </div>
               )}
             </div>
+
             <div>
               <h2 className="text-2xl font-bold mb-6 text-primary">
                 Other Contents
@@ -128,20 +149,29 @@ export default function ResourcesPage() {
                           {resource.description}
                         </p>
                         <p className="text-sm text-gray-500">
-                          {resource.file_type.toUpperCase()} • Uploaded{" "}
-                          {new Date(resource.created_at).toLocaleDateString()}
+                          Uploaded {new Date(resource. created_at).toLocaleDateString()}
                         </p>
                       </div>
-                      {resource.file_url ? (
-                        <a
-                          href={resource.file_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors flex items-center gap-2 whitespace-nowrap self-start"
-                        >
-                          <Download size={18} />
-                          <span>View/Download</span>
-                        </a>
+
+                      {/* Multiple Files Display */}
+                      {resource.resource_files && resource.resource_files.length > 0 ? (
+                        <div className="mt-4 space-y-2">
+                          {resource.resource_files.map((file) => (
+                            <a
+                              key={file.id}
+                              href={file.file_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-between px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                            >
+                              <span className="text-sm truncate mr-2">{file.file_name}</span>
+                              <div className="flex items-center gap-2 flex-shrink-0">
+                                <span className="text-xs">{file. file_type.toUpperCase()}</span>
+                                <Download size={16} />
+                              </div>
+                            </a>
+                          ))}
+                        </div>
                       ) : (
                         <span className="mt-4 px-4 py-2 bg-gray-300 text-gray-600 rounded-md flex items-center gap-2 whitespace-nowrap self-start">
                           No File

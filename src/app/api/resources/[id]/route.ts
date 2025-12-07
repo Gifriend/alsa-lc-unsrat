@@ -1,91 +1,168 @@
-// api/resources/[id].ts (updated)
 import { createClient } from '@supabase/supabase-js'
-import { cookies } from "next/headers"
 
 const supabase = createClient(
   process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process. env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-async function checkAuth() {
-  const cookieStore = await cookies()
-  const authToken = cookieStore.get("admin_auth")
-  return authToken?.value === "true"
-}
-
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const isAuthenticated = await checkAuth()
-  if (!isAuthenticated) {
-    return Response.json({ message: "Unauthorized" }, { status: 401 })
-  }
-
   try {
     const { id } = await params
     const formData = await request.formData()
     const name = formData.get('name') as string
     const description = formData.get('description') as string
     const category = formData.get('category') as string || 'other'
-    const file = formData.get('file') as File | null
+    const newFiles = formData.getAll('files') as File[]
+    const keepFileIdsRaw = formData.getAll('keepFileIds') as string[]
+    
+    // Filter out empty strings
+    const keepFileIds = keepFileIdsRaw.filter(id => id && id.trim() !== '')
 
-    let file_type: string | undefined
-    let file_url: string | null = null
+    // 1. Update resource info
+    const { error: updateError } = await supabase
+      .from('resources')
+      .update({ 
+        name, 
+        description, 
+        category,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', id)
 
-    if (file) {
-      // Hapus file lama jika ada
-      const { data: existing } = await supabase.from('resources').select('file_url').eq('id', id).single()
-      if (existing?.file_url) {
-        const oldPath = existing.file_url.split('/resources/')[1]
-        await supabase.storage.from('resources').remove([oldPath])
+    if (updateError) throw updateError
+
+    // 2. Get existing files
+    const { data: existingFiles } = await supabase
+      . from('resource_files')
+      .select('*')
+      .eq('resource_id', id)
+
+    // 3. Delete files that are NOT in keepFileIds
+    if (existingFiles && existingFiles.length > 0) {
+      for (const file of existingFiles) {
+        if (!keepFileIds.includes(file.id)) {
+          // Delete from storage
+          try {
+            const filePath = file.file_url.split('/resources/')[1]
+            if (filePath) {
+              await supabase.storage. from('resources').remove([filePath])
+            }
+          } catch (err) {
+            console.error("Error removing file from storage:", err)
+          }
+          
+          // Delete from database
+          await supabase
+            .from('resource_files')
+            .delete()
+            .eq('id', file.id)
+        }
       }
-
-      file_type = file.name.split('.').pop()?.toLowerCase() || 'unknown'
-      const filePath = `${file_type}/${crypto.randomUUID()}-${file.name}`
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('resources')
-        .upload(filePath, file)
-
-      if (uploadError) throw uploadError
-      file_url = `${process.env.SUPABASE_URL}/storage/v1/object/public/resources/${filePath}`
     }
 
-    const updateData: any = { name, description, category }
-    if (file_type !== undefined) updateData.file_type = file_type
-    if (file_url) updateData.file_url = file_url
+    // 4. Upload new files if any
+    const uploadedFiles = []
+    if (newFiles.length > 0) {
+      for (const file of newFiles) {
+        const file_type = file.name.split('.').pop()?.toLowerCase() || 'unknown'
+        const filePath = `${file_type}/${crypto.randomUUID()}-${file.name}`
+        
+        const { error: uploadError } = await supabase.storage
+          .from('resources')
+          .upload(filePath, file, {
+            contentType: file.type,
+            upsert: false
+          })
 
-    const { data, error } = await supabase
+        if (uploadError) {
+          console.error("Upload error:", uploadError)
+          continue
+        }
+
+        const file_url = `${process.env. SUPABASE_URL}/storage/v1/object/public/resources/${filePath}`
+
+        const { data: fileData, error: fileError } = await supabase
+          .from('resource_files')
+          .insert({
+            resource_id: id,
+            file_name: file.name,
+            file_url,
+            file_type
+          })
+          .select()
+          .single()
+
+        if (!fileError && fileData) {
+          uploadedFiles.push(fileData)
+        }
+      }
+    }
+
+    // 5. Return updated resource with all files
+    const { data: updatedResource } = await supabase
       .from('resources')
-      .update(updateData)
+      .select(`
+        *,
+        resource_files (*)
+      `)
       .eq('id', id)
-      .select()
+      . single()
 
-    if (error) throw error
-    return Response.json(data[0])
+    return Response.json(updatedResource)
+
   } catch (error) {
     console.error("Error updating resource:", error)
-    return Response.json({ message: "Error updating resource" }, { status: 500 })
+    return Response.json({ 
+      message: "Error updating resource", 
+      error: String(error) 
+    }, { status: 500 })
   }
 }
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const isAuthenticated = await checkAuth()
-  if (!isAuthenticated) {
-    return Response.json({ message: "Unauthorized" }, { status: 401 })
-  }
-
   try {
     const { id } = await params
-    // Hapus file jika ada
-    const { data: existing } = await supabase.from('resources').select('file_url').eq('id', id).single()
-    if (existing?.file_url) {
-      const filePath = existing.file_url.split('/resources/')[1]
-      await supabase.storage.from('resources').remove([filePath])
+    
+    // 1. Get all files for this resource
+    const { data: files } = await supabase
+      . from('resource_files')
+      .select('file_url')
+      .eq('resource_id', id)
+    
+    // 2. Delete all files from storage
+    if (files && files.length > 0) {
+      for (const file of files) {
+        try {
+          const filePath = file.file_url.split('/resources/')[1]
+          if (filePath) {
+            await supabase.storage.from('resources').remove([filePath])
+          }
+        } catch (err) {
+          console.error("Error removing file from storage:", err)
+        }
+      }
     }
 
-    const { error } = await supabase.from('resources').delete().eq('id', id)
+    // 3. Delete from resource_files table
+    await supabase
+      .from('resource_files')
+      .delete()
+      .eq('resource_id', id)
+
+    // 4. Delete resource
+    const { error } = await supabase
+      . from('resources')
+      .delete()
+      .eq('id', id)
+      
     if (error) throw error
-    return Response.json({ message: "Resource deleted" })
+    
+    return Response.json({ message: "Resource deleted successfully" })
   } catch (error) {
     console.error("Error deleting resource:", error)
-    return Response.json({ message: "Error deleting resource" }, { status: 500 })
+    return Response.json({ 
+      message: "Error deleting resource", 
+      error: String(error) 
+    }, { status: 500 })
   }
 }
