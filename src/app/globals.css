@@ -169,6 +169,37 @@
   h3 {
     @apply font-serif text-2xl md:text-3xl font-bold text-primary mb-4;
   }
+
+  /* Redesign helper utilities */
+  .bg-alsa-navy {
+    background-color: #163967;
+  }
+
+  .text-alsa-navy {
+    color: #163967;
+  }
+
+  .border-alsa-navy {
+    border-color: #163967;
+  }
+
+  .hero-ribbon-badge {
+    clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .glass-card-dark {
+    background: rgba(22, 57, 103, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }
 .dropdown-transition {
   transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
