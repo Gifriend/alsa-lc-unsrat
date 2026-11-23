@@ -11,36 +11,36 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950 relative selection:bg-blue-600 selection:text-white">
+    <main className="min-h-screen bg-slate-950 relative selection:bg-[#163967] selection:text-white">
       {/* Dynamic Glassmorphic Navigation */}
       <Navigation />
 
-      {/* Hero Section with Parallax Background */}
+      {/* Hero Section with Parallax Background & Recessed Trapezoid Notch */}
       <Hero />
 
       {/* 
-        Scroll-Up White Content Sheet:
-        As user scrolls down, this rounded white sheet smoothly rises up over the hero photo.
+        Scroll Content Sheet:
+        Connects seamlessly to the hero trapezoid notch with a high-end frosted ice-blue gradient
       */}
       <motion.div
         initial={{ opacity: 0.95 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative z-10 bg-gradient-to-b from-white via-[#f7faff] to-white rounded-t-[36px] md:rounded-t-[56px] shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.3)] pt-6 md:pt-10 overflow-hidden"
+        className="relative z-10 bg-gradient-to-b from-white via-[#f3f7fd] to-[#eef4fb] -mt-px overflow-hidden"
       >
         {/* Subtle decorative background light accents */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-48 bg-gradient-to-b from-blue-100/40 to-transparent blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-56 bg-gradient-to-b from-blue-100/50 via-blue-50/20 to-transparent blur-3xl pointer-events-none" />
 
         {/* 1. Director Opening Statement */}
         <DirectorStatement />
 
-        {/* 2. What is ALSA + 4 Pillars + Vision/Mission */}
+        {/* 2. What is ALSA + 4 Pillars + Vision/Mission Cards */}
         <WhatIsAlsa />
 
-        {/* 3. Our Statistics with Frosted Glass Cards */}
+        {/* 3. Our Statistics with 50% Overhanging Cards */}
         <InNumbers />
 
-        {/* 4. Local Chapter Activities + Video Profile with 3D floating reactions */}
+        {/* 4. Local Chapter Activities + Video Profile */}
         <ActivitiesVideo />
       </motion.div>
 
