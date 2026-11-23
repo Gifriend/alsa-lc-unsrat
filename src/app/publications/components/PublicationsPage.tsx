@@ -144,6 +144,7 @@ export default function PublicationsPage() {
           </div>
         )}
       </section>
+      </div>
       <Footer />
     </main>
   );

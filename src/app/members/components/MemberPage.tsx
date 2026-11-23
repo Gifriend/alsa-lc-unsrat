@@ -97,6 +97,7 @@ export default function MembersPage() {
           </ul>
         </div>
       </section>
+      </div>
       <Footer />
     </main>
   )

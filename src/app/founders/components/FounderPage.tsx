@@ -99,6 +99,7 @@ export default function FoundersPage() {
           </div>
         )}
       </section>
+      </div>
       <Footer />
     </main>
   );

@@ -125,6 +125,7 @@ export default function AchievementsPage() {
           </div>
         )}
       </section>
+      </div>
       <Footer />
     </main>
   );
