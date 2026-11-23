@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Sparkles, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,21 +12,25 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax transforms for the hero background & text
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
+  // Parallax transforms for the hero background image & content
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.25]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
   return (
     <section
       ref={containerRef}
-      className="relative h-[85vh] md:h-[92vh] min-h-[580px] w-full flex flex-col justify-between items-center overflow-hidden bg-slate-950"
+      className="relative h-[85vh] md:h-[92vh] min-h-[580px] w-full flex flex-col justify-between items-center overflow-hidden"
     >
-      {/* Parallax Background Building Image */}
+      {/* 
+        Hero Background Image:
+        Uses the original /hukum-unsrat.jpg building photo used previously.
+        Placed at z-0 with positive stacking context so it is clearly visible.
+      */}
       <motion.div
         style={{ y: bgY, scale }}
-        className="absolute inset-0 -z-20 will-change-transform"
+        className="absolute inset-0 z-0 will-change-transform"
       >
         <Image
           src="/hukum-unsrat.jpg"
@@ -34,10 +38,10 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center filter brightness-90 contrast-105"
+          className="object-cover object-center"
         />
-        {/* Soft Vignette and Blue-tint Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-900/30 to-slate-950/80 -z-10" />
+        {/* Clean dark gradient overlay for optimal text contrast without muddying the photo */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/55 via-black/30 to-black/75 pointer-events-none" />
       </motion.div>
 
       {/* Hero Content Center */}
@@ -45,14 +49,14 @@ export default function Hero() {
         style={{ opacity, y: contentY }}
         className="relative z-10 container-custom flex-1 flex flex-col items-center justify-center text-center pt-24 px-4"
       >
-        {/* Pill Badge */}
+        {/* Clean Pill Badge without any emojis */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/40 text-white text-xs md:text-sm font-semibold tracking-wide shadow-lg mb-6 transition-all"
+          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white text-xs md:text-sm font-medium tracking-wide shadow-lg mb-6 transition-all"
         >
-          <Sparkles size={16} className="text-yellow-300 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-blue-300" />
           <span>Start with the ALSA Life</span>
         </motion.div>
 
@@ -61,7 +65,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-white/90 text-sm md:text-lg max-w-xl font-medium drop-shadow-md mb-4"
+          className="text-white/95 text-sm md:text-lg max-w-xl font-medium drop-shadow mb-4"
         >
           Connect The Difference, Together We Develop. ALSA, Always Be One!
         </motion.p>
@@ -84,11 +88,11 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Subtle Scroll Down Prompt Indicator */}
+      {/* Subtle Scroll Indicator */}
       <motion.div
         animate={{ y: [0, 6, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-2 left-1/2 -translate-x-1/2 text-white/50 hidden md:flex items-center gap-1 text-xs"
+        className="absolute bottom-2 left-1/2 -translate-x-1/2 text-white/50 hidden md:flex items-center gap-1 text-xs z-10"
       >
         <ArrowDown size={14} />
       </motion.div>

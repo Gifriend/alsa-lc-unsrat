@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Sparkles, MessageCircle, ThumbsUp, X, Mail } from "lucide-react";
+import { Play, X, Mail } from "lucide-react";
 
 export default function ActivitiesVideo() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -12,7 +12,7 @@ export default function ActivitiesVideo() {
   return (
     <section className="section-spacing container-custom px-4 overflow-hidden">
       <div className="flex flex-col items-center text-center">
-        {/* Pill Badge */}
+        {/* Clean Pill Badge without any emojis */}
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -20,13 +20,13 @@ export default function ActivitiesVideo() {
           transition={{ duration: 0.6 }}
           className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#163967] text-white text-xs md:text-sm font-semibold tracking-wide shadow-md mb-8"
         >
-          <Sparkles size={16} className="text-yellow-400" />
+          <span className="w-2 h-2 rounded-full bg-blue-300" />
           <span>Local Chapter Activities</span>
         </motion.div>
 
-        {/* Media Container with Floating 3D Reactions */}
+        {/* Clean Media Container without any emoji or floating reactions */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
@@ -47,64 +47,19 @@ export default function ActivitiesVideo() {
             {/* Play Button Overlay (Facade Pattern) */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <motion.button
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsPlaying(true)}
-                className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/90 hover:bg-white text-[#163967] flex items-center justify-center shadow-2xl transition-all"
+                className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/95 hover:bg-white text-[#163967] flex items-center justify-center shadow-2xl transition-all"
                 aria-label="Play Video Profile"
               >
-                <Play size={28} className="fill-[#163967] translate-x-0.5" />
+                <Play size={26} className="fill-[#163967] translate-x-0.5" />
               </motion.button>
               <p className="text-white text-xs md:text-sm font-medium mt-3 drop-shadow">
-                Click to Watch Profile Video
+                Watch Profile Video
               </p>
             </div>
           </div>
-
-          {/* Floating Reaction Bubble: Left (Chat bubble) */}
-          <motion.div
-            animate={{
-              y: [0, -12, 0],
-              rotate: [-2, 2, -2],
-            }}
-            transition={{
-              duration: 3.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute -bottom-5 -left-4 md:-left-8 z-20 bg-white/95 backdrop-blur-md rounded-2xl p-3 shadow-xl border border-blue-100 flex items-center gap-2"
-          >
-            <div className="w-9 h-9 rounded-xl bg-blue-500 text-white flex items-center justify-center shadow-md">
-              <MessageCircle size={20} className="fill-white" />
-            </div>
-            <div className="flex gap-1 items-center px-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse delay-75" />
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse delay-150" />
-            </div>
-          </motion.div>
-
-          {/* Floating Reaction Bubble: Right (3D Thumbs Up / Like) */}
-          <motion.div
-            animate={{
-              y: [0, -14, 0],
-              rotate: [2, -2, 2],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.5,
-            }}
-            className="absolute -top-6 -right-3 md:-right-8 z-20 bg-white/95 backdrop-blur-md rounded-2xl p-3 shadow-xl border border-blue-100 flex items-center gap-2.5"
-          >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center shadow-lg">
-              <ThumbsUp size={22} className="fill-white" />
-            </div>
-            <span className="text-xs font-bold text-gray-800 pr-1">
-              Always Be One!
-            </span>
-          </motion.div>
         </motion.div>
 
         {/* Action Buttons Underneath */}
@@ -112,8 +67,8 @@ export default function ActivitiesVideo() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-wrap items-center justify-center gap-4 mt-12"
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="flex flex-wrap items-center justify-center gap-4 mt-10"
         >
           <button
             onClick={() => setIsPlaying(true)}
@@ -133,7 +88,7 @@ export default function ActivitiesVideo() {
         </motion.div>
       </div>
 
-      {/* Video Modal Player (Zero impact before click) */}
+      {/* Video Modal Player */}
       <AnimatePresence>
         {isPlaying && (
           <motion.div
