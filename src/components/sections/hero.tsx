@@ -1,12 +1,14 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Play } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ArrowDownRight } from "lucide-react";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -17,10 +19,19 @@ export default function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
+  const scrollToContent = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({
+        top: window.innerHeight * 0.78,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[600px] md:min-h-[700px] h-[85vh] w-full flex flex-col justify-between items-center overflow-hidden"
+      className="relative min-h-[620px] md:min-h-[720px] h-[86vh] w-full flex flex-col justify-between items-center overflow-hidden"
     >
       {/* Hero Background Image */}
       <motion.div
@@ -39,25 +50,71 @@ export default function Hero() {
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-black/20 to-black/60 pointer-events-none" />
       </motion.div>
 
-      {/* Decorative Dome / Arch Contour (As seen in mockup) */}
-      <div className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[620px] md:h-[620px] rounded-full border border-white/20 bg-white/5 backdrop-blur-[0.5px] pointer-events-none z-[2]" />
+      {/* 
+        Decorative Concentric Dome Circles ("Bulat-bulat"):
+        Positioned lower down (top-[56%]) matching mockup.
+        Appears and smoothly radiates/glows when hovering "Step into the ALSA side".
+      */}
+      <div className="absolute top-[56%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-[2]">
+        {/* Outer ambient pulse ring */}
+        <motion.div
+          animate={{
+            opacity: isHovered ? 0.35 : 0.06,
+            scale: isHovered ? 1.05 : 0.95,
+          }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="w-[460px] h-[460px] sm:w-[620px] sm:h-[620px] md:w-[820px] md:h-[820px] rounded-full border border-white/20 bg-white/[0.02] -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 blur-[1px]"
+        />
 
-      {/* Hero Center Content: Pill Button */}
+        {/* Main sharp dome contour ring (as seen in mockup) */}
+        <motion.div
+          animate={{
+            opacity: isHovered ? 0.9 : 0.18,
+            scale: isHovered ? 1.02 : 0.98,
+            borderColor: isHovered
+              ? "rgba(255, 255, 255, 0.45)"
+              : "rgba(255, 255, 255, 0.15)",
+          }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="w-[360px] h-[360px] sm:w-[500px] sm:h-[500px] md:w-[660px] md:h-[660px] rounded-full border border-white/25 bg-gradient-to-b from-white/[0.08] via-white/[0.02] to-transparent backdrop-blur-[1px] -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 shadow-[0_0_50px_rgba(255,255,255,0.08)]"
+        />
+
+        {/* Inner subtle glow ring */}
+        <motion.div
+          animate={{
+            opacity: isHovered ? 0.6 : 0,
+            scale: isHovered ? 1 : 0.9,
+          }}
+          transition={{ duration: 0.4 }}
+          className="w-[260px] h-[260px] sm:w-[380px] sm:h-[380px] md:w-[480px] md:h-[480px] rounded-full border border-blue-200/30 bg-blue-400/[0.03] -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2"
+        />
+      </div>
+
+      {/* 
+        Hero Content Area:
+        Positioned "agak kebawah" (lower down, right above the notch)
+        matching the exact mockup placement.
+      */}
       <motion.div
         style={{ opacity, y: contentY }}
-        className="relative z-10 container-custom flex-1 flex flex-col items-center justify-center text-center pt-24 px-4"
+        className="relative z-10 container-custom flex-1 flex flex-col items-center justify-end pb-8 sm:pb-10 md:pb-14 text-center px-4"
       >
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
+        <motion.button
+          onClick={scrollToContent}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+          initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white text-gray-900 text-xs md:text-sm font-semibold shadow-2xl hover:bg-gray-100 transition-all cursor-pointer"
+          className="group inline-flex items-center gap-3 px-6 py-2.5 sm:py-3 rounded-full bg-white text-gray-900 text-xs sm:text-sm font-bold shadow-[0_10px_30px_rgba(0,0,0,0.35)] hover:bg-gray-50 hover:shadow-[0_15px_40px_rgba(255,255,255,0.25)] transition-all cursor-pointer border border-white/60"
         >
-          <div className="w-5 h-5 rounded-full bg-gray-900 text-white flex items-center justify-center">
-            <Play size={10} className="fill-white translate-x-0.5" />
+          <div className="w-5 h-5 rounded-full bg-gray-900 text-white flex items-center justify-center transition-transform duration-300 group-hover:rotate-45">
+            <ArrowDownRight size={12} className="stroke-[2.5]" />
           </div>
-          <span>Start with the ALSA life</span>
-        </motion.div>
+          <span className="tracking-wide">Step into the ALSA side</span>
+        </motion.button>
       </motion.div>
 
       {/* 
