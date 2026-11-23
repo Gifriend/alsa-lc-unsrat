@@ -45,17 +45,30 @@ export default function PublicationsPage() {
       : publications.filter((p) => p.year === selectedYear);
 
   return (
-    <main>
-      <Navigation />
-      <section className="relative h-64 bg-primary overflow-hidden">
-        <div className="relative container-custom h-full flex items-end pb-8">
-          <h1 className="text-4xl md:text-5xl font-serif text-white">
-            Publications
-          </h1>
-        </div>
-      </section>
+    <main className="min-h-screen bg-[#f8faff] text-gray-900 flex flex-col justify-between">
+      <div>
+        <Navigation />
 
-      <section className="section-spacing container-custom">
+        {/* Hero Header Banner */}
+        <section className="relative pt-32 pb-20 bg-gradient-to-b from-[#0e2544] via-[#163967] to-[#1d4880] text-white overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/15 via-transparent to-transparent pointer-events-none" />
+          <div className="container-custom relative z-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-blue-200 text-xs font-semibold uppercase tracking-wider mb-4 border border-white/15">
+              <span>Publications</span>
+              <span>&bull;</span>
+              <span>Scholarly Work</span>
+            </div>
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">
+              Publications & Legal Articles
+            </h1>
+            <p className="text-blue-100 text-sm md:text-base max-w-2xl leading-relaxed">
+              Kumpulan artikel hukum, jurnal ilmiah, dan rilis publikasi resmi dari
+              anggota dan pengurus ALSA Local Chapter Universitas Sam Ratulangi.
+            </p>
+          </div>
+        </section>
+
+        <section className="section-spacing container-custom max-w-6xl py-14">
         {!isLoading && years.length > 0 && (
           <div className="mb-8 flex flex-wrap gap-2">
             <button
