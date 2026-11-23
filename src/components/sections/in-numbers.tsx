@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Users2, Trophy } from "lucide-react";
 
 interface Stats {
   activeMembers: number;
@@ -43,81 +42,71 @@ export default function InNumbers() {
   const statItems = [
     {
       label: "Alumni",
-      value: stats.alumni > 0 ? `${stats.alumni}+` : "250+",
-      desc: "Connected alumni network across legal professions",
-      icon: GraduationCap,
+      value: stats.alumni > 0 ? `${stats.alumni}+` : "999+",
     },
     {
       label: "Members",
-      value: stats.activeMembers > 0 ? `${stats.activeMembers}+` : "180+",
-      desc: "Active law students shaping the future together",
-      icon: Users2,
+      value: stats.activeMembers > 0 ? `${stats.activeMembers}+` : "999+",
     },
     {
       label: "Achievements",
-      value: stats.achievements > 0 ? `${stats.achievements}+` : "45+",
-      desc: "National and international recognitions earned",
-      icon: Trophy,
+      value: stats.achievements > 0 ? `${stats.achievements}+` : "999+",
     },
   ];
 
   return (
-    <section className="section-spacing container-custom px-4 overflow-hidden">
+    <section className="section-spacing container-custom px-4 overflow-visible max-w-5xl mx-auto mb-16">
+      {/* Blue Banner Container */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 25 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="rounded-3xl bg-[#163967] text-white p-8 md:p-14 shadow-2xl relative overflow-hidden"
+        className="rounded-3xl bg-[#163967] text-white pt-10 pb-20 sm:pb-24 px-6 text-center shadow-xl relative overflow-hidden"
       >
-        {/* Decorative background glows */}
+        {/* Subtle background glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 relative z-10">
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
+        <div className="relative z-10 max-w-xl mx-auto">
+          <h2 className="font-sans text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
             Our Statistics
           </h2>
-          <p className="text-blue-200 text-sm md:text-base font-medium">
+          <p className="font-sans text-xs sm:text-sm text-blue-100 font-normal">
             More than numbers, a reflection of our journey
           </p>
         </div>
-
-        {/* 3 Frosted Stat Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-          {statItems.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="rounded-2xl p-6 md:p-8 text-center bg-white/10 backdrop-blur-md border border-white/20 shadow-lg hover:border-white/40 transition-all flex flex-col items-center justify-between group"
-              >
-                <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center text-blue-200 mb-4 group-hover:scale-110 transition-transform">
-                  <Icon size={24} />
-                </div>
-
-                <div className="font-serif text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
-                  {isLoading ? "-" : item.value}
-                </div>
-
-                <h4 className="font-sans font-bold text-lg text-blue-100 uppercase tracking-wider mb-2">
-                  {item.label}
-                </h4>
-
-                <p className="text-xs text-blue-200/80 leading-relaxed max-w-[220px]">
-                  {item.desc}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
       </motion.div>
+
+      {/* 3 Overhanging Stat Cards matching mockup */}
+      <div className="relative -mt-14 sm:-mt-16 max-w-4xl mx-auto px-4 z-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          {statItems.map((item, index) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.12 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="rounded-2xl overflow-hidden shadow-[0_12px_30px_rgba(22,57,103,0.15)] border border-white/70 backdrop-blur-xl flex flex-col group cursor-default"
+            >
+              {/* Top half: inside the blue box */}
+              <div className="pt-6 pb-4 px-4 bg-[#1b437a]/85 backdrop-blur-md flex flex-col items-center justify-center transition-colors group-hover:bg-[#1f4c87]/90">
+                <span className="font-sans text-3xl sm:text-4xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                  {isLoading ? "-" : item.value}
+                </span>
+              </div>
+
+              {/* Bottom half: overhanging into the light background */}
+              <div className="py-3 px-4 bg-white/90 backdrop-blur-md border-t border-white/40 flex items-center justify-center">
+                <span className="font-sans font-bold text-xs sm:text-sm text-[#163967] tracking-wider uppercase">
+                  {item.label}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
