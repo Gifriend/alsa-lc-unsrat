@@ -4,6 +4,7 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { Trash2, Edit2, Upload, X, Shield, Plus, Save, User, Calendar } from "lucide-react";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface BODMember {
   id: string;
@@ -378,7 +379,26 @@ export default function BODManagement() {
         </div>
 
         {isLoading ? (
-          <div className="text-center py-16 text-gray-500">Loading members data...</div>
+          <div className="p-6 space-y-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="flex items-center justify-between gap-4 py-3 border-b border-gray-50 last:border-0">
+                <div className="flex items-center gap-4">
+                  <Skeleton className="w-10 h-10 rounded-full shrink-0" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-36 rounded-md" />
+                    <Skeleton className="h-3 w-24 rounded-md" />
+                  </div>
+                </div>
+                <div className="hidden sm:block">
+                  <Skeleton className="h-6 w-24 rounded-full" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Skeleton className="w-8 h-8 rounded-lg" />
+                  <Skeleton className="w-8 h-8 rounded-lg" />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : members.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
             <User size={40} className="mx-auto mb-3 opacity-40 text-blue-400" />

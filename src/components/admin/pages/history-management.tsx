@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Plus, Edit2, Trash2, Save, X, Calendar, FileText, CheckCircle2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface HistoryItem {
   id: string;
@@ -243,7 +244,30 @@ export default function HistoryManagement() {
         </div>
 
         {loading ? (
-          <div className="text-center py-16 text-gray-500">Loading history data...</div>
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="p-5 rounded-2xl border border-gray-100 bg-[#fbfdff] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+              >
+                <div className="flex items-start gap-4 flex-1">
+                  <Skeleton className="w-10 h-10 rounded-xl shrink-0" />
+                  <div className="space-y-2 flex-1 max-w-lg">
+                    <div className="flex items-center gap-2">
+                      <Skeleton className="h-5 w-16 rounded-md" />
+                      <Skeleton className="h-5 w-40 rounded-md" />
+                    </div>
+                    <Skeleton className="h-4 w-full rounded-md" />
+                    <Skeleton className="h-4 w-3/4 rounded-md" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Skeleton className="w-8 h-8 rounded-lg" />
+                  <Skeleton className="w-8 h-8 rounded-lg" />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : historyItems.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
             <FileText size={40} className="mx-auto mb-3 opacity-40 text-blue-400" />

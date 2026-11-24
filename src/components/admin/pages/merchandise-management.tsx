@@ -15,6 +15,7 @@ import {
   Search,
 } from "lucide-react";
 import imageCompression from "browser-image-compression";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Merchandise {
   id: string;
@@ -413,9 +414,30 @@ export default function MerchandiseManagement() {
 
       {/* Products Grid */}
       {isLoading ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-slate-200/80">
-          <div className="w-8 h-8 border-3 border-[#163967] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-sm text-slate-500">Loading merchandise items...</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div
+              key={i}
+              className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm flex flex-col justify-between"
+            >
+              <div>
+                <Skeleton className="h-48 w-full rounded-none" />
+                <div className="p-5 space-y-3">
+                  <Skeleton className="h-5 w-3/4 rounded-md" />
+                  <Skeleton className="h-3.5 w-full rounded-md" />
+                  <Skeleton className="h-3.5 w-2/3 rounded-md" />
+                  <Skeleton className="h-6 w-28 rounded-lg" />
+                </div>
+              </div>
+              <div className="px-5 py-3 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between">
+                <Skeleton className="h-3 w-16 rounded-md" />
+                <div className="flex items-center gap-1">
+                  <Skeleton className="w-6 h-6 rounded-lg" />
+                  <Skeleton className="w-6 h-6 rounded-lg" />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       ) : filteredMerchandise.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-slate-200/80 p-8">

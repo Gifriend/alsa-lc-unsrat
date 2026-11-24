@@ -14,6 +14,7 @@ import {
   Calendar,
   User,
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Publication {
   id: string;
@@ -284,9 +285,29 @@ export default function PublicationsManagement() {
 
       {/* Publications Cards */}
       {isLoading ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-slate-200/80">
-          <div className="w-8 h-8 border-3 border-[#163967] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-sm text-slate-500">Loading publications catalog...</p>
+        <div className="space-y-3">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
+            >
+              <div className="flex items-start gap-4 flex-1">
+                <Skeleton className="w-11 h-11 rounded-xl shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Skeleton className="h-4 w-12 rounded-md" />
+                    <Skeleton className="h-3.5 w-32 rounded-md" />
+                  </div>
+                  <Skeleton className="h-5 w-4/5 rounded-md" />
+                  <Skeleton className="h-3.5 w-48 rounded-md" />
+                </div>
+              </div>
+              <div className="flex items-center gap-2 justify-end">
+                <Skeleton className="w-8 h-8 rounded-xl" />
+                <Skeleton className="w-8 h-8 rounded-xl" />
+              </div>
+            </div>
+          ))}
         </div>
       ) : filteredPublications.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-slate-200/80 p-8">

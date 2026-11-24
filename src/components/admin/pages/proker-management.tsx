@@ -15,6 +15,7 @@ import {
   X,
   Filter,
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Proker {
   id: string;
@@ -353,9 +354,33 @@ export default function ProkerManagement() {
 
       {/* Program cards list */}
       {isLoading ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-slate-200/80">
-          <div className="w-8 h-8 border-3 border-[#163967] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-sm text-slate-500">Loading work programs...</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm space-y-4"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Skeleton className="h-5 w-20 rounded-md" />
+                  <Skeleton className="h-5 w-16 rounded-full" />
+                </div>
+                <div className="flex items-center gap-1">
+                  <Skeleton className="w-6 h-6 rounded-lg" />
+                  <Skeleton className="w-6 h-6 rounded-lg" />
+                </div>
+              </div>
+              <Skeleton className="h-5 w-3/4 rounded-md" />
+              <div className="space-y-2">
+                <Skeleton className="h-3.5 w-full rounded-md" />
+                <Skeleton className="h-3.5 w-5/6 rounded-md" />
+              </div>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                <Skeleton className="h-3.5 w-28 rounded-md" />
+                <Skeleton className="h-3 w-16 rounded-md" />
+              </div>
+            </div>
+          ))}
         </div>
       ) : filteredProkers.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-slate-200/80 p-8">
