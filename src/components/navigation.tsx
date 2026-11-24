@@ -12,7 +12,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
+      if (window.scrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -46,33 +46,48 @@ export default function Navigation() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 text-[#163967] shadow-lg border-b border-gray-100 backdrop-blur-md"
-          : "bg-slate-950/30 text-white border-b border-white/10 backdrop-blur-md"
+        isOpen
+          ? "bg-[#0a1c34] text-white border-b border-white/10 shadow-2xl"
+          : isScrolled
+          ? "bg-[#0e2544]/95 lg:bg-white/95 text-white lg:text-[#163967] shadow-lg border-b border-white/10 lg:border-gray-100 backdrop-blur-md"
+          : "bg-transparent text-white border-b border-transparent shadow-none"
       }`}
     >
       <div className="container-custom flex justify-between items-center h-18">
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-105">
-            <Image
-              src={isScrolled ? "/alsa-logo-merah.png" : "/ALSA-logo-putih.png"}
-              alt="ALSA LC UNSRAT"
-              fill
-              className="object-contain"
-              priority
-            />
+            {/* Mobile Logo: Always white for high-contrast on transparent / dark navy */}
+            <div className="relative w-full h-full lg:hidden">
+              <Image
+                src="/ALSA-logo-putih.png"
+                alt="ALSA LC UNSRAT"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            {/* Desktop Logo: Switches to red when scrolled over white, white when at top */}
+            <div className="relative w-full h-full hidden lg:block">
+              <Image
+                src={isScrolled ? "/alsa-logo-merah.png" : "/ALSA-logo-putih.png"}
+                alt="ALSA LC UNSRAT"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
           <div className="flex flex-col">
             <span
               className={`font-serif text-lg md:text-xl font-bold tracking-tight transition-colors ${
-                isScrolled ? "text-[#163967]" : "text-white"
+                isScrolled ? "text-white lg:text-[#163967]" : "text-white"
               }`}
             >
               ALSA LC UNSRAT
             </span>
             <span
-              className={`text-[10px] uppercase tracking-wider font-semibold -mt-1 ${
-                isScrolled ? "text-gray-500" : "text-white/70"
+              className={`text-[10px] uppercase tracking-wider font-semibold -mt-1 transition-colors ${
+                isScrolled ? "text-blue-200/80 lg:text-gray-500" : "text-white/70"
               }`}
             >
               Univ. Sam Ratulangi
@@ -90,18 +105,19 @@ export default function Navigation() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`lg:hidden p-2 rounded-lg transition-colors ${
-            isScrolled
-              ? "text-[#163967] hover:bg-gray-100"
-              : "text-white hover:bg-white/10"
+          className={`lg:hidden p-2.5 rounded-xl transition-all duration-200 focus:outline-none ${
+            isOpen
+              ? "bg-white/15 text-white"
+              : "text-white hover:bg-white/10 active:scale-95"
           }`}
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Dropdown: High-end dark navy glassmorphic surface (Never white bg) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -109,21 +125,22 @@ export default function Navigation() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className={`lg:hidden border-b overflow-hidden shadow-2xl ${
-              isScrolled
-                ? "bg-white text-[#163967] border-gray-200"
-                : "bg-[#11294a]/95 text-white border-white/10 backdrop-blur-xl"
-            }`}
+            className="lg:hidden border-b overflow-hidden shadow-2xl bg-[#0a1c34]/98 backdrop-blur-2xl border-white/10 text-white"
           >
-            <div className="container-custom py-4 space-y-1">
-              {navItems.map((item) => (
-                <MobileNavItem
-                  key={item.label}
-                  item={item}
-                  isScrolled={isScrolled}
-                  onClose={() => setIsOpen(false)}
-                />
-              ))}
+            <div className="container-custom py-4 space-y-1 divide-y divide-white/5">
+              <div className="space-y-1 pb-2">
+                {navItems.map((item) => (
+                  <MobileNavItem
+                    key={item.label}
+                    item={item}
+                    onClose={() => setIsOpen(false)}
+                  />
+                ))}
+              </div>
+              <div className="pt-3 px-3 flex items-center justify-between text-xs text-blue-200/60 font-medium">
+                <span>ALSA LC UNSRAT</span>
+                <span className="text-[11px] text-white/50">Asian Law Students&apos; Association</span>
+              </div>
             </div>
           </motion.div>
         )}
@@ -139,9 +156,9 @@ function NavItem({ item, isScrolled }: { item: any; isScrolled: boolean }) {
     return (
       <Link
         href={item.href}
-        className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+        className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 font-medium ${
           isScrolled
-            ? "hover:bg-blue-50 hover:text-[#163967] text-gray-700 font-medium"
+            ? "hover:bg-blue-50 hover:text-[#163967] text-gray-700"
             : "hover:bg-white/15 text-white/90 hover:text-white"
         }`}
       >
@@ -157,9 +174,9 @@ function NavItem({ item, isScrolled }: { item: any; isScrolled: boolean }) {
       onMouseLeave={() => setIsDropdownOpen(false)}
     >
       <button
-        className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+        className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm transition-all duration-200 font-medium ${
           isScrolled
-            ? "hover:bg-blue-50 hover:text-[#163967] text-gray-700 font-medium"
+            ? "hover:bg-blue-50 hover:text-[#163967] text-gray-700"
             : "hover:bg-white/15 text-white/90 hover:text-white"
         }`}
       >
@@ -201,11 +218,9 @@ function NavItem({ item, isScrolled }: { item: any; isScrolled: boolean }) {
 
 function MobileNavItem({
   item,
-  isScrolled,
   onClose,
 }: {
   item: any;
-  isScrolled: boolean;
   onClose: () => void;
 }) {
   const [isSubOpen, setIsSubOpen] = useState(false);
@@ -215,11 +230,7 @@ function MobileNavItem({
       <Link
         href={item.href}
         onClick={onClose}
-        className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-          isScrolled
-            ? "hover:bg-gray-100 text-gray-800"
-            : "hover:bg-white/10 text-white"
-        }`}
+        className="block px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15"
       >
         {item.label}
       </Link>
@@ -227,20 +238,16 @@ function MobileNavItem({
   }
 
   return (
-    <div>
+    <div className="rounded-xl overflow-hidden">
       <button
         onClick={() => setIsSubOpen(!isSubOpen)}
-        className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-          isScrolled
-            ? "hover:bg-gray-100 text-gray-800"
-            : "hover:bg-white/10 text-white"
-        }`}
+        className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15"
       >
         <span>{item.label}</span>
         <ChevronDown
           size={16}
-          className={`transition-transform duration-200 ${
-            isSubOpen ? "rotate-180" : ""
+          className={`transition-transform duration-200 text-white/70 ${
+            isSubOpen ? "rotate-180 text-white" : ""
           }`}
         />
       </button>
@@ -250,22 +257,20 @@ function MobileNavItem({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="pl-4 space-y-1 overflow-hidden"
+            className="pl-3 pr-1 py-1 space-y-1 overflow-hidden"
           >
-            {item.children.map((child: any) => (
-              <Link
-                key={child.href}
-                href={child.href}
-                onClick={onClose}
-                className={`block px-3 py-2 rounded-lg text-xs transition-colors ${
-                  isScrolled
-                    ? "text-gray-600 hover:text-[#163967] hover:bg-gray-50"
-                    : "text-white/80 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                {child.label}
-              </Link>
-            ))}
+            <div className="border-l-2 border-blue-400/30 pl-3 space-y-1 my-1">
+              {item.children.map((child: any) => (
+                <Link
+                  key={child.href}
+                  href={child.href}
+                  onClick={onClose}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium transition-colors text-blue-100/80 hover:text-white hover:bg-white/10 active:bg-white/15"
+                >
+                  {child.label}
+                </Link>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

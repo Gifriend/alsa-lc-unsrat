@@ -48,9 +48,9 @@ export default function AchievementDetailPage() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen flex flex-col bg-[#f8faff]">
+      <main className="min-h-screen flex flex-col bg-[#f8faff] pt-20">
         <Navigation />
-        <div className="flex-1 container-custom max-w-4xl py-14 space-y-6">
+        <div className="flex-1 container-custom max-w-4xl py-8 space-y-6">
           <Skeleton className="h-6 w-32 rounded-lg" />
           <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm space-y-6">
             <div className="space-y-3">
@@ -73,10 +73,10 @@ export default function AchievementDetailPage() {
   if (!achievement) return null
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen flex flex-col bg-[#f8faff] pt-20">
       <Navigation />
       
-      <article className="flex-1 container-custom py-12 max-w-4xl mx-auto w-full">
+      <article className="flex-1 container-custom py-8 max-w-4xl mx-auto w-full">
         <button 
           onClick={() => router.back()} 
           className="flex items-center text-neutral-medium hover:text-primary mb-8 transition-colors group"
