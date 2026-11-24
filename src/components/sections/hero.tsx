@@ -127,12 +127,12 @@ export default function Hero() {
       */}
       <div className="relative z-20 w-full flex flex-col items-center justify-end">
         {/* Title sitting inside the notch */}
-        <div className="absolute bottom-2 md:bottom-3 z-30 text-center px-4 max-w-xl mx-auto pointer-events-none">
+        <div className="absolute bottom-1.5 sm:bottom-2 md:bottom-3 z-30 text-center px-4 max-w-xl mx-auto pointer-events-none">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-sans text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+            className="font-sans text-xs sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-extrabold uppercase tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] leading-tight"
           >
             ALSA LOCAL CHAPTER
           </motion.h1>
@@ -140,7 +140,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-sans text-xs sm:text-sm md:text-base lg:text-lg font-bold tracking-widest text-blue-100 uppercase mt-0.5 md:mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
+            className="font-sans text-[10px] sm:text-xs md:text-sm lg:text-base font-bold tracking-widest text-blue-100 uppercase mt-0.5 md:mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-tight"
           >
             UNIVERSITAS SAM RATULANGI
           </motion.p>
