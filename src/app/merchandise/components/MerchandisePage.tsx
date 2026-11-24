@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { ShoppingBag, MessageCircle, Send, X, Check } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Merchandise {
   id: string;
@@ -128,11 +129,26 @@ export default function MerchandisePage() {
         <section className="section-spacing container-custom max-w-6xl py-14">
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
+              {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl h-96 animate-pulse border border-gray-100"
-                />
+                  className="bg-white rounded-2xl overflow-hidden border border-blue-50 shadow-[0_4px_25px_rgba(22,57,103,0.04)] flex flex-col justify-between"
+                >
+                  <div className="relative">
+                    <Skeleton className="h-64 w-full rounded-none" />
+                    <div className="p-6 space-y-3">
+                      <Skeleton className="h-5 w-3/4 rounded-md" />
+                      <Skeleton className="h-3.5 w-full rounded-md" />
+                      <Skeleton className="h-3.5 w-2/3 rounded-md" />
+                      <div className="pt-2 flex items-center justify-between">
+                        <Skeleton className="h-6 w-28 rounded-md" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6 pt-0">
+                    <Skeleton className="h-11 w-full rounded-xl" />
+                  </div>
+                </div>
               ))}
             </div>
           ) : (

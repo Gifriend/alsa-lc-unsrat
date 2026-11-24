@@ -4,6 +4,7 @@ import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Founder {
   id: string;
@@ -61,7 +62,26 @@ export default function FoundersPage() {
 
         <section className="section-spacing container-custom max-w-6xl py-14">
           {isLoading ? (
-            <div className="text-center py-16 text-gray-500">Loading founders...</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <Skeleton className="w-10 h-10 rounded-xl shrink-0" />
+                    <div className="space-y-1.5 flex-1">
+                      <Skeleton className="h-4 w-32 rounded-md" />
+                      <Skeleton className="h-3.5 w-20 rounded-md" />
+                    </div>
+                  </div>
+                  <div className="space-y-2 pt-2">
+                    <Skeleton className="h-3.5 w-full rounded-md" />
+                    <Skeleton className="h-3.5 w-5/6 rounded-md" />
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : founders.length === 0 ? (
             <div className="text-center py-16 bg-white rounded-3xl border border-gray-200 p-8 max-w-md mx-auto shadow-sm">
               <p className="font-serif text-lg font-bold text-[#163967] mb-1">

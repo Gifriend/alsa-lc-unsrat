@@ -5,6 +5,7 @@ import Footer from "@/components/footer"
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { ArrowLeft, Calendar, ImageIcon } from "lucide-react" 
+import { Skeleton } from "@/components/ui/skeleton" 
 
 interface AchievementDetail {
   id: string
@@ -47,16 +48,25 @@ export default function AchievementDetailPage() {
 
   if (isLoading) {
     return (
-        <main className="min-h-screen flex flex-col">
-            <Navigation />
-            <div className="flex-1 flex items-center justify-center">
-                <div className="animate-pulse flex flex-col items-center gap-2">
-                    <div className="h-8 w-8 bg-gray-200 rounded-full animate-spin"></div>
-                    <span className="text-gray-500 text-sm">Loading details...</span>
-                </div>
+      <main className="min-h-screen flex flex-col bg-[#f8faff]">
+        <Navigation />
+        <div className="flex-1 container-custom max-w-4xl py-14 space-y-6">
+          <Skeleton className="h-6 w-32 rounded-lg" />
+          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm space-y-6">
+            <div className="space-y-3">
+              <Skeleton className="h-4 w-36 rounded-md" />
+              <Skeleton className="h-8 w-4/5 rounded-md" />
             </div>
-            <Footer />
-        </main>
+            <Skeleton className="h-80 w-full rounded-2xl" />
+            <div className="space-y-3 pt-4">
+              <Skeleton className="h-4 w-full rounded-md" />
+              <Skeleton className="h-4 w-full rounded-md" />
+              <Skeleton className="h-4 w-3/4 rounded-md" />
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </main>
     )
   }
 

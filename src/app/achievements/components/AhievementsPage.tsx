@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ImageIcon } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Achievement {
   id: string;
@@ -63,12 +64,21 @@ export default function AchievementsPage() {
         <section className="section-spacing container-custom max-w-6xl py-14">
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Skeleton Loading sederhana */}
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="bg-gray-100 rounded-lg h-80 animate-pulse"
-              ></div>
+                className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm flex flex-col justify-between"
+              >
+                <div>
+                  <Skeleton className="h-48 w-full rounded-none" />
+                  <div className="p-6 space-y-3">
+                    <Skeleton className="h-4 w-24 rounded-md" />
+                    <Skeleton className="h-5 w-4/5 rounded-md" />
+                    <Skeleton className="h-3.5 w-full rounded-md" />
+                    <Skeleton className="h-3.5 w-2/3 rounded-md" />
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         ) : achievements.length === 0 ? (

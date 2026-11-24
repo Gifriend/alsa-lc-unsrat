@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Stats {
   activeMembers: number;
@@ -93,7 +94,11 @@ export default function InNumbers() {
               {/* Top half: inside the blue box */}
               <div className="pt-6 pb-4 px-4 bg-[#1b437a]/85 backdrop-blur-md flex flex-col items-center justify-center transition-colors group-hover:bg-[#1f4c87]/90">
                 <span className="font-sans text-3xl sm:text-4xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-                  {isLoading ? "-" : item.value}
+                  {isLoading ? (
+                    <Skeleton className="h-9 w-24 bg-white/25 rounded-lg" />
+                  ) : (
+                    item.value
+                  )}
                 </span>
               </div>
 

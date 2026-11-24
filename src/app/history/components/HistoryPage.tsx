@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { ExternalLink, MapPin, Building2, Calendar, Award } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface HistoryItem {
   id: string;
@@ -167,8 +168,19 @@ export default function HistoryPage() {
 
           <div className="max-w-3xl mx-auto">
             {loading ? (
-              <div className="text-center py-12 text-gray-500">
-                Loading history timeline...
+              <div className="relative pl-4 sm:pl-8 space-y-8">
+                <div className="absolute left-[27px] sm:left-[43px] top-6 bottom-6 w-0.5 bg-slate-200" />
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="flex items-start gap-4 sm:gap-6 relative">
+                    <Skeleton className="w-10 h-10 sm:w-12 sm:h-12 rounded-full shrink-0 z-10" />
+                    <div className="flex-1 bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200/80 space-y-3">
+                      <Skeleton className="h-5 w-20 rounded-full" />
+                      <Skeleton className="h-5 w-3/5 rounded-md" />
+                      <Skeleton className="h-3.5 w-full rounded-md" />
+                      <Skeleton className="h-3.5 w-4/5 rounded-md" />
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="relative pl-4 sm:pl-8">

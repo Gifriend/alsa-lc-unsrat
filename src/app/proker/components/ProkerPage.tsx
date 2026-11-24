@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Calendar, Filter, Sparkles, CheckCircle2, Clock } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Proker {
   id: string;
@@ -189,8 +190,26 @@ export default function ProkerPage() {
 
         {/* Programs Grid */}
         {isLoading ? (
-          <div className="text-center py-16 text-gray-500">
-            Loading work programs...
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl p-6 border border-blue-50 shadow-[0_4px_25px_rgba(22,57,103,0.04)] space-y-4"
+              >
+                <div className="flex items-center justify-between">
+                  <Skeleton className="h-5 w-20 rounded-md" />
+                  <Skeleton className="h-5 w-16 rounded-full" />
+                </div>
+                <Skeleton className="h-5 w-4/5 rounded-md" />
+                <div className="space-y-2">
+                  <Skeleton className="h-3.5 w-full rounded-md" />
+                  <Skeleton className="h-3.5 w-5/6 rounded-md" />
+                </div>
+                <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+                  <Skeleton className="h-3.5 w-28 rounded-md" />
+                </div>
+              </div>
+            ))}
           </div>
         ) : filteredProkers.length === 0 ? (
           <div className="text-center py-16 bg-white rounded-3xl border border-gray-200 p-8 max-w-md mx-auto shadow-sm">

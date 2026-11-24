@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Users, Award, Shield, Layers, History, User } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface BODMember {
   id: string;
@@ -200,8 +201,35 @@ export default function BODPage() {
             </div>
 
             {isLoading ? (
-              <div className="text-center py-16 text-gray-500">
-                Loading board members...
+              <div className="flex flex-col items-center gap-8 w-full">
+                {/* Director level skeleton */}
+                <div className="flex justify-center">
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col items-center w-56 space-y-3">
+                    <Skeleton className="w-24 h-24 rounded-full" />
+                    <Skeleton className="h-4 w-32 rounded-md" />
+                    <Skeleton className="h-3.5 w-24 rounded-full" />
+                  </div>
+                </div>
+                {/* Vice / Board level skeleton */}
+                <div className="flex flex-wrap justify-center gap-6">
+                  {[1, 2].map((i) => (
+                    <div key={i} className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col items-center w-52 space-y-3">
+                      <Skeleton className="w-20 h-20 rounded-full" />
+                      <Skeleton className="h-4 w-28 rounded-md" />
+                      <Skeleton className="h-3.5 w-20 rounded-full" />
+                    </div>
+                  ))}
+                </div>
+                {/* Officers level skeleton */}
+                <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col items-center w-48 space-y-2.5">
+                      <Skeleton className="w-16 h-16 rounded-full" />
+                      <Skeleton className="h-3.5 w-28 rounded-md" />
+                      <Skeleton className="h-3 w-20 rounded-full" />
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : members.length === 0 ? (
               <div className="text-center py-12 bg-white rounded-2xl border border-gray-200 p-8 max-w-md mx-auto shadow-sm">

@@ -3,6 +3,7 @@
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { useState, useEffect } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface MemberStats {
   activeMembers: number
@@ -57,7 +58,16 @@ export default function MembersPage() {
 
         <section className="section-spacing container-custom max-w-5xl py-14">
         {isLoading ? (
-          <div className="text-center py-12">Loading members...</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
+            <div className="bg-white p-10 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col items-center space-y-3">
+              <Skeleton className="h-12 w-24 rounded-lg" />
+              <Skeleton className="h-5 w-32 rounded-md" />
+            </div>
+            <div className="bg-white p-10 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col items-center space-y-3">
+              <Skeleton className="h-12 w-24 rounded-lg" />
+              <Skeleton className="h-5 w-32 rounded-md" />
+            </div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
             <div className="bg-primary text-white p-12 rounded shadow text-center">
