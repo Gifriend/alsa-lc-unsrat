@@ -126,13 +126,18 @@ export default function Hero() {
         flanked by the white shoulders of the content sheet.
       */}
       <div className="relative z-20 w-full flex flex-col items-center justify-end">
+        {/* Soft Blue Atmospheric Ambient Glow inside the Notch behind Text */}
+        <div className="absolute bottom-0 inset-x-0 h-32 flex items-center justify-center pointer-events-none z-25 overflow-hidden">
+          <div className="w-80 sm:w-[500px] md:w-[700px] h-20 sm:h-28 bg-gradient-to-t from-blue-500/25 via-blue-400/15 to-transparent blur-2xl rounded-full" />
+        </div>
+
         {/* Title sitting inside the notch */}
         <div className="absolute bottom-2.5 sm:bottom-3 md:bottom-4 z-30 text-center px-2 sm:px-4 max-w-xl mx-auto pointer-events-none w-full">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-sans text-lg sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-extrabold uppercase tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] leading-tight"
+            className="font-sans text-xs sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-extrabold uppercase tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] leading-tight"
           >
             ALSA LOCAL CHAPTER
           </motion.h1>
@@ -140,15 +145,15 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-sans text-sm sm:text-xs md:text-sm lg:text-base font-bold tracking-widest text-blue-100 uppercase mt-0.5 md:mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-tight"
+            className="font-sans text-[10px] sm:text-xs md:text-sm lg:text-base font-bold tracking-widest text-blue-100 uppercase mt-0.5 md:mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-tight"
           >
             UNIVERSITAS SAM RATULANGI
           </motion.p>
         </div>
 
-        {/* Notch Shape SVG Transition to White Section */}
-        <div className="w-full overflow-hidden leading-none -mb-px">
-          {/* Mobile Notch: Narrow white shoulders and extra-wide opening so text is completely visible */}
+        {/* Notch Shape SVG Transition to White/Ice-Blue Section */}
+        <div className="w-full overflow-hidden leading-none -mb-px relative">
+          {/* Mobile Notch: Narrow white shoulders and extra-wide opening with soft ice-blue gradient */}
           <svg
             viewBox="0 0 1200 90"
             fill="none"
@@ -156,13 +161,20 @@ export default function Hero() {
             className="w-full h-16 block sm:hidden"
             preserveAspectRatio="none"
           >
+            <defs>
+              <linearGradient id="heroNotchMobileGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#e8f2fe" />
+                <stop offset="40%" stopColor="#f4f8fe" />
+                <stop offset="100%" stopColor="#f5f9ff" />
+              </linearGradient>
+            </defs>
             <path
               d="M 0 0 H 40 C 60 0 75 10 95 35 L 115 65 C 125 80 135 90 155 90 H 1045 C 1065 90 1075 80 1085 65 L 1105 35 C 1125 10 1140 0 1160 0 H 1200 V 90 H 0 Z"
-              fill="#ffffff"
+              fill="url(#heroNotchMobileGrad)"
             />
           </svg>
 
-          {/* Tablet & Desktop Notch: Classic proportional shoulders */}
+          {/* Tablet & Desktop Notch: Classic proportional shoulders with ice-blue gradient and luminous contour edge */}
           <svg
             viewBox="0 0 1200 90"
             fill="none"
@@ -170,9 +182,29 @@ export default function Hero() {
             className="w-full h-18 md:h-24 lg:h-28 hidden sm:block"
             preserveAspectRatio="none"
           >
+            <defs>
+              <linearGradient id="heroNotchDesktopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#e4f0fc" />
+                <stop offset="35%" stopColor="#f2f7fe" />
+                <stop offset="100%" stopColor="#f5f9ff" />
+              </linearGradient>
+              <linearGradient id="heroNotchEdge" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.4" />
+                <stop offset="25%" stopColor="#bfdbfe" stopOpacity="0.7" />
+                <stop offset="50%" stopColor="#ffffff" stopOpacity="0.3" />
+                <stop offset="75%" stopColor="#bfdbfe" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#93c5fd" stopOpacity="0.4" />
+              </linearGradient>
+            </defs>
             <path
               d="M 0 0 H 260 C 280 0 295 10 315 35 L 340 70 C 350 84 368 90 388 90 H 812 C 832 90 850 84 860 70 L 885 35 C 905 10 920 0 940 0 H 1200 V 90 H 0 Z"
-              fill="#ffffff"
+              fill="url(#heroNotchDesktopGrad)"
+            />
+            <path
+              d="M 0 0 H 260 C 280 0 295 10 315 35 L 340 70 C 350 84 368 90 388 90 H 812 C 832 90 850 84 860 70 L 885 35 C 905 10 920 0 940 0 H 1200"
+              stroke="url(#heroNotchEdge)"
+              strokeWidth="2"
+              fill="none"
             />
           </svg>
         </div>
