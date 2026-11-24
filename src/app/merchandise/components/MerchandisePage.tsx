@@ -107,8 +107,8 @@ export default function MerchandisePage() {
         <Navigation />
 
         {/* Hero Header Banner */}
-        <section className="relative pt-32 pb-20 bg-gradient-to-b from-[#0e2544] via-[#163967] to-[#1d4880] text-white overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/15 via-transparent to-transparent pointer-events-none" />
+        <section className="relative pt-32 pb-20 bg-linear-to-b from-[#0e2544] via-[#163967] to-[#1d4880] text-white overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-blue-400/15 via-transparent to-transparent pointer-events-none" />
           <div className="container-custom relative z-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-blue-200 text-xs font-semibold uppercase tracking-wider mb-4 border border-white/15">
               <span>Merchandise</span>
@@ -159,7 +159,7 @@ export default function MerchandisePage() {
                   className="bg-white rounded-2xl overflow-hidden border border-blue-50 shadow-[0_4px_25px_rgba(22,57,103,0.04)] hover:shadow-xl transition-all flex flex-col justify-between group"
                 >
                   {/* Image Container */}
-                  <div className="h-64 w-full bg-gradient-to-tr from-slate-100 to-blue-50/50 overflow-hidden relative flex items-center justify-center">
+                  <div className="h-64 w-full bg-linear-to-tr from-slate-100 to-blue-50/50 overflow-hidden relative flex items-center justify-center">
                     {item.image ? (
                       <img
                         src={item.image}
