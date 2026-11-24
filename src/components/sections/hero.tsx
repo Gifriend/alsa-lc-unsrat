@@ -132,7 +132,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-sans text-xs sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-extrabold uppercase tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] leading-tight"
+            className="font-sans text-lg sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-extrabold uppercase tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] leading-tight"
           >
             ALSA LOCAL CHAPTER
           </motion.h1>
@@ -140,7 +140,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-sans text-[10px] sm:text-xs md:text-sm lg:text-base font-bold tracking-widest text-blue-100 uppercase mt-0.5 md:mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-tight"
+            className="font-sans text-sm sm:text-xs md:text-sm lg:text-base font-bold tracking-widest text-blue-100 uppercase mt-0.5 md:mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-tight"
           >
             UNIVERSITAS SAM RATULANGI
           </motion.p>
