@@ -41,7 +41,7 @@ export default function DirectorStatement() {
                   Director of ALSA Local Chapter
                 </p>
                 <p className="text-[10px] sm:text-[11px] text-gray-200 font-medium leading-tight">
-                  Universitas Sam Ratulangi
+                  Universitas Sam Ratulangi (2025/2026)
                 </p>
               </div>
             </div>

@@ -16,12 +16,12 @@ export async function GET() {
     }))
 
     const termDoc = await adminDb.collection("settings").doc("bod_term").get()
-    const term = termDoc.exists ? termDoc.data()?.value : "2024-2026"
+    const term = termDoc.exists ? termDoc.data()?.value : "2025-2026"
 
     return Response.json({ members, term })
   } catch (error) {
     console.error("Error fetching BOD:", error)
-    return Response.json({ members: [], term: "2024-2026" }, { status: 500 })
+    return Response.json({ members: [], term: "2025-2026" }, { status: 500 })
   }
 }
 

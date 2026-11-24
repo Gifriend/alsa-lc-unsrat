@@ -25,7 +25,7 @@ const LEVEL_OPTIONS = [
 
 export default function BODManagement() {
   const [members, setMembers] = useState<BODMember[]>([]);
-  const [term, setTerm] = useState("2024-2025");
+  const [term, setTerm] = useState("2025-2026");
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +47,7 @@ export default function BODManagement() {
       if (response.ok) {
         const data = await response.json();
         setMembers(data.members || []);
-        setTerm(data.term || "2024-2025");
+        setTerm(data.term || "2025-2026");
       }
     } catch (error) {
       console.error("Failed to fetch BOD:", error);
@@ -206,7 +206,7 @@ export default function BODManagement() {
             type="text"
             value={term}
             onChange={(e) => setTerm(e.target.value)}
-            placeholder="Contoh: 2024-2025"
+            placeholder="Contoh: 2025-2026"
             className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#163967] shadow-xs focus:outline-none focus:border-[#163967] w-full sm:w-44"
           />
           <button

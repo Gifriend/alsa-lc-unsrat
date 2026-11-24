@@ -61,10 +61,10 @@ export default function HistoryPage() {
     },
     {
       id: "4",
-      year: "2024",
+      year: "2026",
       title: "Empowering Future Legal Leaders",
       description:
-        "Continuing a legacy of excellence through leadership development, professional legal skill training, and community service.",
+        "Continuing a legacy of excellence under the 2025/2026 administration through leadership development, professional legal skill training, and community service.",
     },
   ];
 

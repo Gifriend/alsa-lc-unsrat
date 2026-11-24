@@ -19,7 +19,7 @@ interface BODMember {
 
 export default function BODPage() {
   const [members, setMembers] = useState<BODMember[]>([]);
-  const [term, setTerm] = useState("2024-2025");
+  const [term, setTerm] = useState("2025-2026");
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"all" | "bod" | "affairs" | "history">("all");
 
@@ -30,7 +30,7 @@ export default function BODPage() {
         if (response.ok) {
           const data = await response.json();
           setMembers(data.members || []);
-          setTerm(data.term || "2024-2025");
+          setTerm(data.term || "2025-2026");
         }
       } catch (error) {
         console.error("Failed to fetch BOD:", error);
@@ -71,27 +71,105 @@ export default function BODPage() {
     },
   ];
 
+  // Active 2025/2026 default BOD structure with Nathania as incumbent Director
+  const defaultBODMembers: BODMember[] = [
+    {
+      id: "dir-1",
+      name: "Nathania E. Kembuan",
+      position: "Director",
+      image: "/director_nathania_clean.png",
+      level: 1,
+      order: 1,
+    },
+    {
+      id: "secgen-1",
+      name: "Secretary General",
+      position: "Secretary General",
+      level: 2,
+      order: 1,
+    },
+    {
+      id: "treasurer-1",
+      name: "Treasurer",
+      position: "Treasurer",
+      level: 2,
+      order: 2,
+    },
+    {
+      id: "vd-internal",
+      name: "Vice Director of Internal",
+      position: "Vice Director of Internal Affairs",
+      division: "internal",
+      level: 3,
+      order: 1,
+    },
+    {
+      id: "vd-external",
+      name: "Vice Director of External",
+      position: "Vice Director of External Affairs",
+      division: "external",
+      level: 3,
+      order: 2,
+    },
+    {
+      id: "vd-finance",
+      name: "Vice Director of Finance",
+      position: "Vice Director of Finance",
+      division: "finance",
+      level: 3,
+      order: 3,
+    },
+    {
+      id: "vd-aat",
+      name: "Vice Director of AAT",
+      position: "Vice Director of Academic & Activities Training",
+      division: "aat",
+      level: 3,
+      order: 4,
+    },
+    {
+      id: "vd-ict",
+      name: "Vice Director of ICT",
+      position: "Vice Director of ICT",
+      division: "ict",
+      level: 3,
+      order: 5,
+    },
+  ];
+
   // Leadership History sample records
   const leadershipHistory = [
     {
-      term: "2024 - 2025",
+      term: "2025 - 2026",
       director: "Nathania E. Kembuan",
       theme: "Catalyst of Collaboration & Legal Excellence",
+      isIncumbent: true,
+    },
+    {
+      term: "2024 - 2025",
+      director: "Previous Director",
+      theme: "Strengthening Foundation & Regional Engagement",
+      isIncumbent: false,
     },
     {
       term: "2023 - 2024",
       director: "Previous Director",
-      theme: "Strengthening Foundation & Regional Engagement",
+      theme: "Digital Resilience & Academic Leadership",
+      isIncumbent: false,
     },
     {
       term: "2022 - 2023",
       director: "Previous Director",
-      theme: "Digital Resilience & Academic Leadership",
+      theme: "Institutional Evolution & Excellence",
+      isIncumbent: false,
     },
   ];
 
+  // Use members from DB or fallback to default structure
+  const activeMembers = members.length > 0 ? members : defaultBODMembers;
+
   // Group members by level
-  const groupedMembers = members.reduce(
+  const groupedMembers = activeMembers.reduce(
     (acc, member) => {
       const level = member.level || 1;
       if (!acc[level]) acc[level] = [];
@@ -394,9 +472,15 @@ export default function BODPage() {
                     </div>
                   </div>
 
-                  <span className="self-start sm:self-center px-3 py-1 rounded-full bg-blue-50 text-[#163967] text-xs font-semibold">
-                    Local Director
-                  </span>
+                  {item.isIncumbent ? (
+                    <span className="self-start sm:self-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20 text-xs font-semibold">
+                      Incumbent Director (Active)
+                    </span>
+                  ) : (
+                    <span className="self-start sm:self-center px-3 py-1 rounded-full bg-blue-50 text-[#163967] text-xs font-semibold">
+                      Past Director
+                    </span>
+                  )}
                 </div>
               ))}
             </div>

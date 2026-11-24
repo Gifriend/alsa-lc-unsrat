@@ -179,7 +179,7 @@ export default function HistoryManagement() {
                   type="text"
                   value={formData.year}
                   onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                  placeholder="Contoh: 2024"
+                  placeholder="Contoh: 2026"
                   className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-xs sm:text-sm text-gray-900 shadow-xs focus:outline-none focus:border-[#163967] focus:ring-2 focus:ring-[#163967]/15 transition-all"
                 />
               </div>

@@ -38,7 +38,7 @@ export default function ProkerPage() {
       description:
         "Community legal consultation and social advocacy outreach organized in surrounding communities.",
       status: "ongoing",
-      startDate: "2025-02-15",
+      startDate: "2026-02-15",
       division: "internal",
     },
     {
@@ -47,7 +47,7 @@ export default function ProkerPage() {
       description:
         "External institutional study excursion visiting prestigious law firms and the High Court.",
       status: "ongoing",
-      startDate: "2025-03-10",
+      startDate: "2026-03-10",
       division: "external",
     },
     {
@@ -56,7 +56,7 @@ export default function ProkerPage() {
       description:
         "Official chapter merchandise launching and creative entrepreneurial sponsorship ventures.",
       status: "ongoing",
-      startDate: "2025-01-20",
+      startDate: "2026-01-20",
       division: "finance",
     },
     {
@@ -65,7 +65,7 @@ export default function ProkerPage() {
       description:
         "Intensive legal drafting workshops and moot court simulation training for junior members.",
       status: "ongoing",
-      startDate: "2025-02-01",
+      startDate: "2026-02-01",
       division: "aat",
     },
     {
@@ -74,7 +74,7 @@ export default function ProkerPage() {
       description:
         "Complete revamping of digital presence, search engine indexing, and chapter resources platform.",
       status: "ongoing",
-      startDate: "2025-01-05",
+      startDate: "2026-01-05",
       division: "ict",
     },
     {
@@ -83,7 +83,7 @@ export default function ProkerPage() {
       description:
         "Grand onboarding and orientation conference for newly admitted batch of ALSAian law students.",
       status: "archived",
-      startDate: "2024-11-12",
+      startDate: "2025-11-12",
       division: "internal",
     },
   ];
