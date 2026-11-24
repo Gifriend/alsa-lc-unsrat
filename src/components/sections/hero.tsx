@@ -127,7 +127,7 @@ export default function Hero() {
       */}
       <div className="relative z-20 w-full flex flex-col items-center justify-end">
         {/* Title sitting inside the notch */}
-        <div className="absolute bottom-1.5 sm:bottom-2 md:bottom-3 z-30 text-center px-4 max-w-xl mx-auto pointer-events-none">
+        <div className="absolute bottom-2.5 sm:bottom-3 md:bottom-4 z-30 text-center px-2 sm:px-4 max-w-xl mx-auto pointer-events-none w-full">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -148,11 +148,26 @@ export default function Hero() {
 
         {/* Notch Shape SVG Transition to White Section */}
         <div className="w-full overflow-hidden leading-none -mb-px">
+          {/* Mobile Notch: Narrow white shoulders and extra-wide opening so text is completely visible */}
           <svg
             viewBox="0 0 1200 90"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-14 sm:h-18 md:h-24 lg:h-28 block"
+            className="w-full h-16 block sm:hidden"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M 0 0 H 40 C 60 0 75 10 95 35 L 115 65 C 125 80 135 90 155 90 H 1045 C 1065 90 1075 80 1085 65 L 1105 35 C 1125 10 1140 0 1160 0 H 1200 V 90 H 0 Z"
+              fill="#ffffff"
+            />
+          </svg>
+
+          {/* Tablet & Desktop Notch: Classic proportional shoulders */}
+          <svg
+            viewBox="0 0 1200 90"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-18 md:h-24 lg:h-28 hidden sm:block"
             preserveAspectRatio="none"
           >
             <path
