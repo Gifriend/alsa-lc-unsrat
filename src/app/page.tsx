@@ -26,10 +26,10 @@ export default function Home() {
         initial={{ opacity: 0.95 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative z-10 bg-gradient-to-b from-white via-[#f3f7fd] to-[#eef4fb] -mt-px overflow-hidden"
+        className="relative z-10 bg-linear-to-b from-white via-[#f3f7fd] to-[#eef4fb] -mt-px overflow-hidden"
       >
         {/* Subtle decorative background light accents */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-56 bg-gradient-to-b from-blue-100/50 via-blue-50/20 to-transparent blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-56 bg-linear-to-b from-blue-100/50 via-blue-50/20 to-transparent blur-3xl pointer-events-none" />
 
         {/* 1. Director Opening Statement */}
         <DirectorStatement />
